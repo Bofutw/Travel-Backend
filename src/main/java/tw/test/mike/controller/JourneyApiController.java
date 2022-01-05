@@ -52,13 +52,18 @@ public class JourneyApiController {
 				Map map = new HashMap();//把journeybean重組成為map
 				map.put("journeydetail", temp.getJourneydetail());
 				map.put("journeyid", temp.getJourneyid());
-				
-				Map blogMap = new HashMap();//把blogbean重組成為\ma
-				blogMap.put("Blogid", temp.getBlog().getBlogid());
-				blogMap.put("Blogauthority", temp.getBlog().getBlogauthority());
-				blogMap.put("Blogdetail", temp.getBlog().getBlogdetail());
-				
-				map.put("blog",blogMap);//兩個map組合起來
+
+
+
+				if(temp.getBlog()!=null) {
+					Map blogMap = new HashMap();//把blogbean重組成為\ma
+					blogMap.put("Blogid", temp.getBlog().getBlogid());
+					blogMap.put("Blogauthority", temp.getBlog().getBlogauthority());
+					blogMap.put("Blogdetail", temp.getBlog().getBlogdetail());
+					map.put("blog",blogMap);//兩個map組合起來
+				}
+
+
 				JSONObject resault = new JSONObject(map);//建構成json
 				System.out.println(resault);
 				return ResponseEntity.ok().header("Content-Type", "application/json").body(resault.toString());

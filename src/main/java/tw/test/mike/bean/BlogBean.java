@@ -34,7 +34,7 @@ public class BlogBean {
 	private Integer blogauthority;
 	
 	
-	@OneToOne(cascade = CascadeType.ALL,
+	@ManyToOne(cascade = CascadeType.ALL,
 			fetch = FetchType.EAGER)
 	@JoinColumn(
 			name = "blogjourneyid",//對照原先table內欄位

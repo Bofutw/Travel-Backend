@@ -56,16 +56,26 @@ public class JourneyApiController {
 
 
 				if(temp.getBlog()!=null) {
-					Map blogMap = new HashMap();//把blogbean重組成為\ma
-					blogMap.put("Blogid", temp.getBlog().getBlogid());
-					blogMap.put("Blogauthority", temp.getBlog().getBlogauthority());
-					blogMap.put("Blogdetail", temp.getBlog().getBlogdetail());
+					List<BlogBean> blogbean = temp.getBlog();
+					Map[] blogMap = new HashMap[blogbean.size()];//把blogbean重組成為
+					System.out.println(blogbean.size());
+					for(int i =0;i<blogbean.size();i++) {
+						HashMap each = new HashMap();
+//						System.out.println(blogbean.get(i).getBlogid());
+//						System.out.println(blogbean.get(i).getBlogauthority());
+//						System.out.println(blogbean.get(i).getBlogdetail());
+						each.put("Blogid", blogbean.get(i).getBlogid());
+						each.put("Blogauthority", blogbean.get(i).getBlogauthority());
+						each.put("Blogdetail", blogbean.get(i).getBlogdetail());
+						blogMap[i]=each;
+					}
+
 					map.put("blog",blogMap);//兩個map組合起來
 				}
 
 
 				JSONObject resault = new JSONObject(map);//建構成json
-				System.out.println(resault);
+//				System.out.println(resault);
 				return ResponseEntity.ok().header("Content-Type", "application/json").body(resault.toString());
 			}
 			return ResponseEntity.notFound().build();

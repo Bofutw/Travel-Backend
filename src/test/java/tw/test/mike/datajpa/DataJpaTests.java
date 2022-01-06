@@ -24,9 +24,9 @@ public class DataJpaTests {
 //		System.out.println(memberService.selectbyId(memberBean).getJourney().get(0).getJourneydetail());
 //		System.out.println(memberService.selectbyId(memberBean).getBlog());
 //		System.out.println("-------------------------------");
-		System.out.println(blogService.selectByKeyword("bunny"));
+//		System.out.println(blogService.selectByKeyword("bunny"));
 //		System.out.println("-------------------------------");
-//		System.out.println(journeyService.select().get(0).getMemberBean());
+		System.out.println(journeyService.selectById(1));
 //		System.out.println("-------------------------------");
 //		System.out.println(memberService.selectbyId(memberBean));
 		

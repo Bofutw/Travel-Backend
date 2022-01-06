@@ -1,5 +1,6 @@
 package tw.test.mike.bean;
 
+import java.util.List;
 import java.util.Map;
 
 import javax.persistence.CascadeType;
@@ -11,6 +12,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
@@ -31,11 +33,11 @@ public class JourneyBean {
 	@Column(name = "journeydetail" , columnDefinition = "json")
 	private String journeydetail;
 	
-	@OneToOne(mappedBy = "journey", 
+	@OneToMany(mappedBy = "journey", 
 			cascade = CascadeType.ALL,
 			fetch = FetchType.EAGER)
 	@JsonBackReference
-	private BlogBean blog;
+	private List<BlogBean> blog;
 
 	
 	
@@ -64,10 +66,11 @@ public class JourneyBean {
 	public String toString() {
 		return "JourneyBean [journeyid=" + journeyid + ", journeydetail=" + journeydetail + "]";
 	}
-	public BlogBean getBlog() {
+
+	public List<BlogBean> getBlog() {
 		return blog;
 	}
-	public void setBlog(BlogBean blog) {
+	public void setBlog(List<BlogBean> blog) {
 		this.blog = blog;
 	}
 	public MemberBean getMember() {

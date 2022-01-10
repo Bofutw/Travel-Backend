@@ -33,7 +33,7 @@ public class JourneyApiController {
 	@GetMapping({"/"})
 	public ResponseEntity<?> read(){	
 		try {
-			List<JourneyBean> resault = journeyService.select();
+			List<JourneyBean> resault = journeyService.selectAll();
 			if(resault!=null) {
 				return ResponseEntity.ok(resault);
 			}
@@ -44,47 +44,19 @@ public class JourneyApiController {
 		}
 
 	}
-	@GetMapping({"/{id}"})
-	public ResponseEntity<?> readHaveBlog(@PathVariable(name = "id")Integer id){	
-		try {
-			JourneyBean temp = journeyService.selectById(id);
-			if(temp!=null) {
-				Map map = new HashMap();//把journeybean重組成為map
-				map.put("journeydetail", temp.getJourneydetail());
-				map.put("journeyid", temp.getJourneyid());
-
-
-
-				if(temp.getBlog()!=null) {
-					List<BlogBean> blogbean = temp.getBlog();
-					Map[] blogMap = new HashMap[blogbean.size()];//把blogbean重組成為
-					System.out.println(blogbean.size());
-					for(int i =0;i<blogbean.size();i++) {
-						HashMap each = new HashMap();
-//						System.out.println(blogbean.get(i).getBlogid());
-//						System.out.println(blogbean.get(i).getBlogauthority());
-//						System.out.println(blogbean.get(i).getBlogdetail());
-						each.put("Blogid", blogbean.get(i).getBlogid());
-						each.put("Blogauthority", blogbean.get(i).getBlogauthority());
-						each.put("Blogdetail", blogbean.get(i).getBlogdetail());
-						blogMap[i]=each;
-					}
-
-					map.put("blog",blogMap);//兩個map組合起來
-				}
-
-
-				JSONObject resault = new JSONObject(map);//建構成json
-//				System.out.println(resault);
-				return ResponseEntity.ok().header("Content-Type", "application/json").body(resault.toString());
-			}
+	@GetMapping("/{id}")
+	public ResponseEntity<?> selectbyId(
+			@PathVariable(name = "id", required = false) Integer id){
+		JourneyBean bean = new JourneyBean();
+		bean.setJourneyid(id);
+		JourneyBean result = journeyService.selectbyId(bean);
+		if(result!=null){
+			return ResponseEntity.ok(result);
+		}else {
 			return ResponseEntity.notFound().build();
-		}catch(Exception e) {
-			System.out.println(e);
-			return ResponseEntity.status(500).build();
 		}
-
 	}
+
 	@PostMapping({"/",})
 	public ResponseEntity<?> create(@RequestBody JourneyBean bean){
 		JourneyBean result = journeyService.create(bean);

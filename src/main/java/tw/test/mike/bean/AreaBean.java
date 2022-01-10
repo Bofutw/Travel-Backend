@@ -1,36 +1,63 @@
 package tw.test.mike.bean;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import java.util.List;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
-import javax.persistence.Table;
-
-
+import javax.persistence.*;
 
 
 @Entity
 @Table(name = "area")
 public class AreaBean {
+
 	@Id
+	@GeneratedValue(
+			strategy = GenerationType.IDENTITY
+	)
 	@Column(name = "areaid")
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer areaid;
+
 	@Column(name = "areaname")
 	private String areaname;
+	@JsonIgnore
+	@OneToMany(
+			mappedBy = "area",//對方classs內設定association的java屬性名稱
+			cascade = {CascadeType.ALL},
+			fetch = FetchType.EAGER
 
-	@OneToMany(mappedBy = "area")
+	)
 	private List<CityBean> city;
+
+	public List<CityBean> getCity() {
+		return city;
+	}
+
+	public void setCity(List<CityBean> city) {
+		this.city = city;
+	}
+
+	public Integer getAreaid() {
+		return areaid;
+	}
+
+	public void setAreaid(Integer areaid) {
+		this.areaid = areaid;
+	}
+
+	public String getAreaname() {
+		return areaname;
+	}
+
+	public void setAreaname(String areaname) {
+		this.areaname = areaname;
+	}
+
 	@Override
 	public String toString() {
-		return "AreaBean [areaname=" + areaname + "]";
+		return "AreaBean{" +
+				"areaid=" + areaid +
+				", areaname='" + areaname + '\'' +
+				'}';
 	}
-	
 }

@@ -21,12 +21,12 @@ public class DataJpaTests {
 	public void selectTest() {
 		MemberBean memberBean = new MemberBean();
 		memberBean.setMemberid(1);
-//		System.out.println(memberService.selectbyId(memberBean).getJourney().get(0).getJourneydetail());
+		System.out.println(memberService.selectbyId(memberBean).getJourney().get(0).getJourneydetail());
 //		System.out.println(memberService.selectbyId(memberBean).getBlog());
 //		System.out.println("-------------------------------");
 //		System.out.println(blogService.selectByKeyword("bunny"));
 //		System.out.println("-------------------------------");
-		System.out.println(journeyService.selectById(1));
+//		System.out.println(journeyService.selectById(1));
 //		System.out.println("-------------------------------");
 //		System.out.println(memberService.selectbyId(memberBean));
 		

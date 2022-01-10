@@ -24,51 +24,59 @@ import com.fasterxml.jackson.annotation.JsonManagedReference;
 @Entity
 @Table(name = "blog")
 public class BlogBean {
+
 	@Id
+	@GeneratedValue(
+			strategy = GenerationType.IDENTITY
+	)
 	@Column(name = "blogid")
-	@GeneratedValue(strategy = GenerationType.IDENTITY)//auto increment
 	private Integer blogid;
-	@Column(name = "blogdetail",columnDefinition = "json")
+
+
+	@Column(name = "blogdetail")
 	private String blogdetail;
+
 	@Column(name = "blogauthority")
 	private Integer blogauthority;
-	
-	
-	@ManyToOne(cascade = CascadeType.ALL,
-			fetch = FetchType.EAGER)
-	@JoinColumn(
-			name = "blogjourneyid",//對照原先table內欄位
-			referencedColumnName = "journeyid"	//對照參照對象欄位		
-			)
 
+
+	@ManyToOne(fetch = FetchType.EAGER)
+	@JsonIgnore
+	@JoinColumn(
+			name = "blogmemberid",
+			referencedColumnName = "memberid"
+	)
+	private MemberBean member;
+
+
+	@ManyToOne(fetch = FetchType.EAGER)
+	@JsonIgnore
+	@JoinColumn(
+			name = "blogjourneyid",
+			referencedColumnName = "journeyid"
+	)
 	private JourneyBean journey;
 
-	
-	@ManyToOne( cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-	@JoinColumn(name="blogmemberid",
-	referencedColumnName = "memberid"
-	)
+	public MemberBean getMember() {
+		return member;
+	}
 
-	@JsonBackReference
-	private MemberBean member;
-	
-	
+	public void setMember(MemberBean member) {
+		this.member = member;
+	}
 
 	public JourneyBean getJourney() {
 		return journey;
 	}
+
 	public void setJourney(JourneyBean journey) {
 		this.journey = journey;
 	}
-	public MemberBean getMember() {
-		return member;
-	}
-	public void setMember(MemberBean member) {
-		this.member = member;
-	}
+
 	public Integer getBlogid() {
 		return blogid;
 	}
+
 	public void setBlogid(Integer blogid) {
 		this.blogid = blogid;
 	}
@@ -76,22 +84,28 @@ public class BlogBean {
 	public String getBlogdetail() {
 		return blogdetail;
 	}
+
 	public void setBlogdetail(String blogdetail) {
 		this.blogdetail = blogdetail;
 	}
+
 	public Integer getBlogauthority() {
 		return blogauthority;
 	}
+
 	public void setBlogauthority(Integer blogauthority) {
 		this.blogauthority = blogauthority;
 	}
 
+
 	@Override
 	public String toString() {
-		return "BlogBean [blogid=" + blogid + ", blogdetail=" + blogdetail + ", blogauthority=" + blogauthority + "]";
+		return "BlogBean{" +
+				"blogid=" + blogid +
+				", blogdetail='" + blogdetail + '\'' +
+				", blogauthority=" + blogauthority +
+				'}';
 	}
 
-	
-	
 
 }

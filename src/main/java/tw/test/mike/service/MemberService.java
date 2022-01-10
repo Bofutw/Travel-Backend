@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import tw.test.mike.bean.JourneyBean;
 import tw.test.mike.bean.MemberBean;
 import tw.test.mike.dao.MemberRepository;
 
@@ -15,17 +16,41 @@ import tw.test.mike.dao.MemberRepository;
 public class MemberService {
 	@Autowired
 	private MemberRepository memberRepository;
-	
+
+	public List<MemberBean> selectAll(){
+		return memberRepository.findAll();
+	}
+
 	public MemberBean selectbyId(MemberBean memberBean) {
+		MemberBean result = null;
 		Optional<MemberBean> optional =memberRepository.findById(memberBean.getMemberid());
-		
+
 		if(optional.isPresent()) {
-			MemberBean result = optional.get();
+			result = optional.get();
 
 			return result;
 		}
-		return null;
+		return result;
 	}
+
+	public List<MemberBean> selectbyGender(Integer gender){
+
+		List<MemberBean> result = memberRepository.findBymembergender(gender);
+
+		return result;
+	}
+
+	public List<JourneyBean> selectJourney(MemberBean memberBean){
+		List<JourneyBean> result = null;
+		if(memberBean!=null){
+			result = selectbyId(memberBean).getJourney();
+			return result;
+		}
+		return result;
+
+	}
+
+
 	public boolean delete(MemberBean memberBean) {
 		Optional<MemberBean> optional =memberRepository.findById(memberBean.getMemberid());
 		if(optional.isPresent()) {

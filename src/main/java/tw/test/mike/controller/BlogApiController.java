@@ -24,6 +24,7 @@ import tw.test.mike.service.BlogService;
 public class BlogApiController {
 	@Autowired
 	private BlogService blogService;
+
 	
 	@GetMapping({"/{keyword}"})
 	public ResponseEntity<?> read(

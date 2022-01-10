@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import tw.test.mike.bean.BlogBean;
+import tw.test.mike.bean.MemberBean;
 import tw.test.mike.dao.BlogRepository;
 
 @Service
@@ -15,10 +16,28 @@ import tw.test.mike.dao.BlogRepository;
 public class BlogService {
 	@Autowired
 	private BlogRepository blogRepository;
+
+	public List<BlogBean> selectAll(){
+		return blogRepository.findAll();
+	}
+
+	public List<BlogBean> selectAllbyauthority(){
+		List<BlogBean> result = null;
+
+		return result = blogRepository.findByblogauthority(1);
+	}
+
+	public List<BlogBean> selectAllbymemberidandauthority(MemberBean memberBean, Integer authority){
+		List<BlogBean> result = null;
+
+		result = blogRepository.findByMemberAndBlogauthority(memberBean, authority);
+
+		return result;
+	}
 	
 	public List<BlogBean> selectByKeyword(String keyword) {
 		return blogRepository.findByBlogdetailLike("%"+keyword+"%");
-		//return blogRepository.findAll();
+
 	}
 
 	public boolean delete(BlogBean blogBean) {

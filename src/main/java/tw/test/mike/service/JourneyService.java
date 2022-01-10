@@ -17,18 +17,30 @@ import tw.test.mike.dao.JourneyRepository;
 public class JourneyService {
 	@Autowired
 	private JourneyRepository journeyRepository;
-	
-	public List<JourneyBean> select() {
-		
+
+	public List<JourneyBean> selectAll(){
 		return journeyRepository.findAll();
 	}
-	public JourneyBean selectById(Integer id) {
-		Optional<JourneyBean> optional = journeyRepository.findById(id);
+
+	public JourneyBean selectbyId(JourneyBean journeyBean){
+		JourneyBean result = null;
+		Optional<JourneyBean> optional =journeyRepository.findById(journeyBean.getJourneyid());
+
 		if(optional.isPresent()) {
-			
-			return optional.get();
+			result = optional.get();
+
+			return result;
 		}
-		return null;
+		return result;
+	}
+
+	public List<BlogBean> selectBlog(JourneyBean journeyBean){
+		List<BlogBean> result = null;
+		if(journeyBean!=null){
+			result = selectbyId(journeyBean).getBlog();
+			return result;
+		}
+		return result;
 	}
 
 	public boolean delete(JourneyBean journeyBean) {

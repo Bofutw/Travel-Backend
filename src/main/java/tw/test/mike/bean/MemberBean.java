@@ -86,7 +86,15 @@ public class MemberBean {
 	@Fetch(FetchMode.SUBSELECT)
 	@JsonIgnore
 	private List<BlogBean> blog;
+	@OneToMany(
+			mappedBy = "member", 
+			fetch = FetchType.EAGER
+			)
 
+	@Fetch(FetchMode.SUBSELECT) //限制fetch深度避免進入fetch recursive
+	@JsonIgnore
+	private List<CollectBean> collect;
+	
 	public CityBean getCity() {
 		return city;
 	}
@@ -174,6 +182,14 @@ public class MemberBean {
 
 	public void setMemberintro(String memberintro) {
 		this.memberintro = memberintro;
+	}
+
+	public List<CollectBean> getCollect() {
+		return collect;
+	}
+
+	public void setCollect(List<CollectBean> collect) {
+		this.collect = collect;
 	}
 
 	@Override

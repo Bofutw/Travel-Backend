@@ -12,7 +12,7 @@ public class MemberTests {
     @Autowired
     private MemberService memberService;
 
-    @Test
+   // @Test
     public void testSelects(){
 
         System.out.println(memberService.selectAll());
@@ -23,15 +23,15 @@ public class MemberTests {
         MemberBean bean = new MemberBean();
         bean.setMemberid(1);
 
-        System.out.println(memberService.selectbyId(bean));
+        System.out.println(memberService.selectbyId(bean).getCollect());
     }
 
-    @Test
+   // @Test
     public void testSelectbyGender(){
         System.out.println(memberService.selectbyGender(0));
     }
 
-    @Test
+   // @Test
     public void testSelectJourney(){
         MemberBean bean = new MemberBean();
         bean.setMemberid(1);

@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import tw.test.mike.bean.BlogBean;
 import tw.test.mike.bean.JourneyBean;
+import tw.test.mike.bean.MemberBean;
 import tw.test.mike.service.BlogService;
 import tw.test.mike.service.JourneyService;
 
@@ -57,9 +58,15 @@ public class JourneyApiController {
 		}
 	}
 
-	@PostMapping({"/",})
-	public ResponseEntity<?> create(@RequestBody JourneyBean bean){
+	@PostMapping({"/{id}",})
+	public ResponseEntity<?> create(@RequestBody JourneyBean bean,
+			@PathVariable(name = "id", required = false) Integer id){
+		MemberBean member = new MemberBean();
+		member.setMemberid(id);
+		bean.setMember(member);
+		bean.setJourneyid(65534);
 		JourneyBean result = journeyService.create(bean);
+		System.out.println(result);
 		if(result!=null) {
 			return ResponseEntity.ok(result);
 		}

@@ -14,6 +14,7 @@ import tw.test.mike.service.MemberService;
 
 import javax.websocket.server.PathParam;
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/member")
@@ -73,26 +74,32 @@ public class MemberApiController {
 	}
 	@PutMapping({"/", "/cityid={cityid}"})
 	public ResponseEntity<?> update(@RequestBody MemberBean bean, @PathVariable(name = "cityid", required = false) Integer cityid){
+		MemberBean memberBean;
 		CityBean cityBean = new CityBean();
 		AreaBean areaBean = new AreaBean();
 
-		if(cityid!=null){
-			cityBean.setCityid(cityid);
+		if(memberService.selectbyId(bean).getCity()!= null){
+			if(cityid!=null){
+				cityBean.setCityid(cityid);
+
+			}else {
+				MemberBean temp = new MemberBean();
+				temp.setMemberid(bean.getMemberid());
+				memberBean = memberService.selectbyId(temp);
+				cityBean = cityService.selectbyid(memberBean.getCity());
+			}
+
+			cityBean.setCityname(cityService.selectbyid(cityBean).getCityname());
+
+			areaBean.setAreaid(areaSerivce.selectbycityid(cityBean).getAreaid());
+			areaBean.setAreaname(areaSerivce.selectbycityid(cityBean).getAreaname());
+
+			cityBean.setArea(areaBean);
+
 			System.out.println(cityBean);
-		}else {
-			cityBean = cityService.selectbyid(bean.getCity());
-			System.out.println(cityBean);
+			bean.setCity(cityBean);
+
 		}
-
-		cityBean.setCityname(cityService.selectbyid(cityBean).getCityname());
-
-		areaBean.setAreaid(areaSerivce.selectbycityid(cityBean).getAreaid());
-		areaBean.setAreaname(areaSerivce.selectbycityid(cityBean).getAreaname());
-
-		cityBean.setArea(areaBean);
-
-		System.out.println(cityBean);
-		bean.setCity(cityBean);
 
 		MemberBean result = memberService.update(bean);
 		if(result!=null) {

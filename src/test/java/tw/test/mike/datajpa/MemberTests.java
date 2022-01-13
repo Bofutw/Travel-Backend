@@ -21,23 +21,22 @@ public class MemberTests {
     @Test
     public void testSelectsbyId(){
         MemberBean bean = new MemberBean();
-        bean.setMemberid(1);
+        bean.setMemberid(2);
 
-        System.out.println(memberService.selectbyId(bean).getCollect());
+        System.out.println(memberService.selectbyId(bean).getCity());
     }
 
-   // @Test
+    @Test
     public void testSelectbyGender(){
         System.out.println(memberService.selectbyGender(0));
     }
 
-   // @Test
+    @Test
     public void testSelectJourney(){
         MemberBean bean = new MemberBean();
         bean.setMemberid(1);
 
         System.out.println(memberService.selectJourney(bean));
     }
-
 
 }

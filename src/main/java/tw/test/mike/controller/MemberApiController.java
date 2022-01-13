@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.*;
 import tw.test.mike.bean.AreaBean;
 import tw.test.mike.bean.CityBean;
 import tw.test.mike.bean.MemberBean;
+import tw.test.mike.dao.CityRepository;
 import tw.test.mike.service.AreaSerivce;
 import tw.test.mike.service.CityService;
 import tw.test.mike.service.MemberService;
@@ -72,22 +73,26 @@ public class MemberApiController {
 	}
 	@PutMapping({"/", "/cityid={cityid}"})
 	public ResponseEntity<?> update(@RequestBody MemberBean bean, @PathVariable(name = "cityid", required = false) Integer cityid){
+		CityBean cityBean = new CityBean();
+		AreaBean areaBean = new AreaBean();
+
 		if(cityid!=null){
-			CityBean cityBean = new CityBean();
 			cityBean.setCityid(cityid);
-
-			cityBean.setCityname(cityService.selectbyid(cityBean).getCityname());
-
-			AreaBean areaBean = new AreaBean();
-			areaBean.setAreaid(areaSerivce.selectbycityid(cityBean).getAreaid());
-			areaBean.setAreaname(areaSerivce.selectbycityid(cityBean).getAreaname());
-
-			cityBean.setArea(areaBean);
-
 			System.out.println(cityBean);
-			bean.setCity(cityBean);
+		}else {
+			cityBean = cityService.selectbyid(bean.getCity());
+			System.out.println(cityBean);
 		}
 
+		cityBean.setCityname(cityService.selectbyid(cityBean).getCityname());
+
+		areaBean.setAreaid(areaSerivce.selectbycityid(cityBean).getAreaid());
+		areaBean.setAreaname(areaSerivce.selectbycityid(cityBean).getAreaname());
+
+		cityBean.setArea(areaBean);
+
+		System.out.println(cityBean);
+		bean.setCity(cityBean);
 
 		MemberBean result = memberService.update(bean);
 		if(result!=null) {

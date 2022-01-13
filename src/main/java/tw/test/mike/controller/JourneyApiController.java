@@ -58,7 +58,7 @@ public class JourneyApiController {
 		}
 	}
 
-	@PostMapping({"/{id}",})
+	@PostMapping({"/member={id}",})
 	public ResponseEntity<?> create(@RequestBody JourneyBean bean,
 			@PathVariable(name = "id", required = false) Integer id){
 		MemberBean member = new MemberBean();

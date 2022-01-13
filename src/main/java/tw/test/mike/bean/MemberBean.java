@@ -17,6 +17,7 @@ import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
+import net.bytebuddy.implementation.bind.annotation.Default;
 import org.hibernate.annotations.Fetch;
 import org.hibernate.annotations.FetchMode;
 import org.hibernate.annotations.Type;
@@ -58,8 +59,14 @@ public class MemberBean {
 	@Type(type = "text")
 	private String memberintro;
 
+	@Column(name = "memberregistertime")
+	private Date memberregistertime;
 
-	@ManyToOne(fetch= FetchType.EAGER)
+
+	@ManyToOne(
+			fetch= FetchType.EAGER,
+			cascade = {CascadeType.ALL}
+	)
 	@JsonIgnore
 	@JoinColumn(
 			name = "membercityid ",
@@ -94,7 +101,15 @@ public class MemberBean {
 	@Fetch(FetchMode.SUBSELECT) //限制fetch深度避免進入fetch recursive
 	@JsonIgnore
 	private List<CollectBean> collect;
-	
+
+	public Date getMemberregistertime() {
+		return memberregistertime;
+	}
+
+	public void setMemberregistertime(Date memberregistertime) {
+		this.memberregistertime = memberregistertime;
+	}
+
 	public CityBean getCity() {
 		return city;
 	}
@@ -203,6 +218,11 @@ public class MemberBean {
 				", memberbirth=" + memberbirth +
 				", membergender=" + membergender +
 				", memberintro='" + memberintro + '\'' +
+				", memberregistertime=" + memberregistertime +
+				", city=" + city +
+				", journey=" + journey +
+				", blog=" + blog +
+				", collect=" + collect +
 				'}';
 	}
 }

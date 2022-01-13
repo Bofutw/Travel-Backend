@@ -1,5 +1,7 @@
 package tw.test.mike.service;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -67,6 +69,9 @@ public class MemberService {
 		return null;
 	}
 	public MemberBean create(MemberBean memberBean) {
+		Date date = new Date();
+		memberBean.setMemberregistertime(date);
+
 		return memberRepository.save(memberBean);
 
 	}

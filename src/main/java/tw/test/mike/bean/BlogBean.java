@@ -1,5 +1,6 @@
 package tw.test.mike.bean;
 
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -38,6 +39,12 @@ public class BlogBean {
 
 	@Column(name = "blogauthority")
 	private Integer blogauthority;
+
+	@Column(name = "blogcreatetime")
+	private Date blogcreatetime;
+
+	@Column(name = "blogupdatetime")
+	private Date blogupdatetime;
 
 
 	@ManyToOne(fetch = FetchType.EAGER)
@@ -97,6 +104,21 @@ public class BlogBean {
 		this.blogauthority = blogauthority;
 	}
 
+	public Date getBlogcreatetime() {
+		return blogcreatetime;
+	}
+
+	public void setBlogcreatetime(Date blogcreatetime) {
+		this.blogcreatetime = blogcreatetime;
+	}
+
+	public Date getBlogupdatetime() {
+		return blogupdatetime;
+	}
+
+	public void setBlogupdatetime(Date blogupdatetime) {
+		this.blogupdatetime = blogupdatetime;
+	}
 
 	@Override
 	public String toString() {
@@ -104,8 +126,10 @@ public class BlogBean {
 				"blogid=" + blogid +
 				", blogdetail='" + blogdetail + '\'' +
 				", blogauthority=" + blogauthority +
+				", blogcreatetime=" + blogcreatetime +
+				", blogupdatetime=" + blogupdatetime +
+				", member=" + member +
+				", journey=" + journey +
 				'}';
 	}
-
-
 }

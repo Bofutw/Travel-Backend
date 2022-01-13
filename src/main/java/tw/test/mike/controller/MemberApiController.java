@@ -2,18 +2,17 @@ package tw.test.mike.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
+import tw.test.mike.bean.AreaBean;
+import tw.test.mike.bean.CityBean;
 import tw.test.mike.bean.MemberBean;
+import tw.test.mike.service.AreaSerivce;
+import tw.test.mike.service.CityService;
 import tw.test.mike.service.MemberService;
+
+import javax.websocket.server.PathParam;
+import java.util.List;
 
 @RestController
 @RequestMapping("/member")
@@ -22,6 +21,23 @@ public class MemberApiController {
 	
 	@Autowired
 	private MemberService memberService;
+
+	@Autowired
+	private AreaSerivce areaSerivce;
+
+	@Autowired
+	private CityService cityService;
+
+	@GetMapping({"/"})
+	public ResponseEntity<?> selectAll(){
+		List<MemberBean> result = memberService.selectAll();
+		if(result!=null){
+			return ResponseEntity.ok(result);
+		}else {
+			return ResponseEntity.notFound().build();
+		}
+	}
+
 	@GetMapping({"/{id}"})
 	public ResponseEntity<?> read(
 			@PathVariable(name = "id",required = false) Integer id){
@@ -54,8 +70,25 @@ public class MemberApiController {
 		}
 		return ResponseEntity.notFound().build();
 	}
-	@PutMapping({"/"})
-	public ResponseEntity<?> update(@RequestBody MemberBean bean){
+	@PutMapping({"/", "/cityid={cityid}"})
+	public ResponseEntity<?> update(@RequestBody MemberBean bean, @PathVariable(name = "cityid", required = false) Integer cityid){
+		if(cityid!=null){
+			CityBean cityBean = new CityBean();
+			cityBean.setCityid(cityid);
+
+			cityBean.setCityname(cityService.selectbyid(cityBean).getCityname());
+
+			AreaBean areaBean = new AreaBean();
+			areaBean.setAreaid(areaSerivce.selectbycityid(cityBean).getAreaid());
+			areaBean.setAreaname(areaSerivce.selectbycityid(cityBean).getAreaname());
+
+			cityBean.setArea(areaBean);
+
+			System.out.println(cityBean);
+			bean.setCity(cityBean);
+		}
+
+
 		MemberBean result = memberService.update(bean);
 		if(result!=null) {
 			return ResponseEntity.ok(bean);

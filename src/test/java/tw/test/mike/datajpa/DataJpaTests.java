@@ -9,6 +9,9 @@ import tw.test.mike.service.MemberService;
 import tw.test.mike.service.BlogService;
 import tw.test.mike.service.JourneyService;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 @SpringBootTest
 public class DataJpaTests {
 	@Autowired
@@ -32,8 +35,10 @@ public class DataJpaTests {
 		
 		
 	}
-	//@Test
+	@Test
 	public void selectKeywordTest() {
-
+		Date date = new Date();
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd");
+		System.out.println(sdf.format(date));
 	}
 }

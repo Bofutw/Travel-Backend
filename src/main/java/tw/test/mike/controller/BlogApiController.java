@@ -16,6 +16,8 @@ import org.springframework.web.bind.annotation.RestController;
 
 
 import tw.test.mike.bean.BlogBean;
+import tw.test.mike.bean.JourneyBean;
+import tw.test.mike.bean.MemberBean;
 import tw.test.mike.service.BlogService;
 
 @RestController
@@ -24,6 +26,16 @@ import tw.test.mike.service.BlogService;
 public class BlogApiController {
 	@Autowired
 	private BlogService blogService;
+
+	@GetMapping(path = "/")
+	public ResponseEntity<?> selectAllBlog(){
+		List<BlogBean> result = blogService.selectAll();
+		if(result!=null){
+			return ResponseEntity.ok(result);
+		}else {
+			return ResponseEntity.notFound().build();
+		}
+	}
 
 	
 	@GetMapping({"/{keyword}"})
@@ -43,8 +55,19 @@ public class BlogApiController {
 
 	}
 	
-	@PostMapping({"/",})
-	public ResponseEntity<?> create(@RequestBody BlogBean bean){
+	@PostMapping({"/member={memberid}&journey={journeyid}"})
+	public ResponseEntity<?> create(@RequestBody BlogBean bean,
+		@PathVariable(name = "memberid") Integer memberid,
+		@PathVariable(name = "journeyid") Integer journeyid){
+
+		MemberBean member = new MemberBean();
+		member.setMemberid(memberid);
+		bean.setMember(member);
+
+		JourneyBean journey = new JourneyBean();
+		journey.setJourneyid(journeyid);
+		bean.setJourney(journey);
+
 		BlogBean result = blogService.create(bean);
 		if(result!=null) {
 			return ResponseEntity.ok(result);

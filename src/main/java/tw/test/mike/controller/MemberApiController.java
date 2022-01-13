@@ -74,32 +74,32 @@ public class MemberApiController {
 	}
 	@PutMapping({"/", "/cityid={cityid}"})
 	public ResponseEntity<?> update(@RequestBody MemberBean bean, @PathVariable(name = "cityid", required = false) Integer cityid){
-		MemberBean memberBean;
 		CityBean cityBean = new CityBean();
 		AreaBean areaBean = new AreaBean();
 
-		if(memberService.selectbyId(bean).getCity()!= null){
-			if(cityid!=null){
-				cityBean.setCityid(cityid);
-
+		if(cityid!=null){
+			cityBean.setCityid(cityid);
+		}else{
+			if(memberService.selectbyId(bean).getCity()!= null){
+				cityBean = memberService.selectbyId(bean).getCity();
 			}else {
-				MemberBean temp = new MemberBean();
-				temp.setMemberid(bean.getMemberid());
-				memberBean = memberService.selectbyId(temp);
-				cityBean = cityService.selectbyid(memberBean.getCity());
+				MemberBean result = memberService.update(bean);
+				if(result!=null) {
+					return ResponseEntity.ok(bean);
+				}
 			}
-
-			cityBean.setCityname(cityService.selectbyid(cityBean).getCityname());
-
-			areaBean.setAreaid(areaSerivce.selectbycityid(cityBean).getAreaid());
-			areaBean.setAreaname(areaSerivce.selectbycityid(cityBean).getAreaname());
-
-			cityBean.setArea(areaBean);
-
-			System.out.println(cityBean);
-			bean.setCity(cityBean);
-
 		}
+
+		cityBean.setCityname(cityService.selectbyid(cityBean).getCityname());
+
+		areaBean.setAreaid(areaSerivce.selectbycityid(cityBean).getAreaid());
+		areaBean.setAreaname(areaSerivce.selectbycityid(cityBean).getAreaname());
+
+		cityBean.setArea(areaBean);
+
+		System.out.println(cityBean);
+		bean.setCity(cityBean);
+
 
 		MemberBean result = memberService.update(bean);
 		if(result!=null) {

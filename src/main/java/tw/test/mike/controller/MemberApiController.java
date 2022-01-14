@@ -7,14 +7,10 @@ import org.springframework.web.bind.annotation.*;
 import tw.test.mike.bean.AreaBean;
 import tw.test.mike.bean.CityBean;
 import tw.test.mike.bean.MemberBean;
-import tw.test.mike.dao.CityRepository;
 import tw.test.mike.service.AreaSerivce;
 import tw.test.mike.service.CityService;
 import tw.test.mike.service.MemberService;
-
-import javax.websocket.server.PathParam;
 import java.util.List;
-import java.util.Map;
 
 @RestController
 @RequestMapping("/member")
@@ -41,7 +37,7 @@ public class MemberApiController {
 	}
 
 	@GetMapping({"/{id}"})
-	public ResponseEntity<?> read(
+	public ResponseEntity<?> selectbyId(
 			@PathVariable(name = "id",required = false) Integer id){
 		
 		MemberBean bean = new MemberBean();
@@ -52,6 +48,18 @@ public class MemberApiController {
 		}
 		return ResponseEntity.notFound().build();
 	}
+
+	@GetMapping({"/gender={gender}"})
+	public ResponseEntity<?> selectbyGender(
+			@PathVariable (name = "gender") Integer gender){
+		List<MemberBean>  result = memberService.selectbyGender(gender);
+
+		if(result!=null){
+			return ResponseEntity.ok(result);
+		}
+		return ResponseEntity.notFound().build();
+	}
+
 	@PostMapping({"/",})
 	public ResponseEntity<?> create(@RequestBody MemberBean bean){
 		bean.setMemberid(65534);

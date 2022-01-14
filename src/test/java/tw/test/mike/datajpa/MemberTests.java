@@ -33,10 +33,8 @@ public class MemberTests {
 
     @Test
     public void testSelectJourney(){
-        MemberBean bean = new MemberBean();
-        bean.setMemberid(1);
 
-        System.out.println(memberService.selectJourney(bean));
+        System.out.println(memberService.selectJourney(1));
     }
 
 }

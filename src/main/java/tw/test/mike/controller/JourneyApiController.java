@@ -1,11 +1,10 @@
 package tw.test.mike.controller;
 
-import java.util.HashMap;
+import java.security.PrivateKey;
 import java.util.List;
-import java.util.Map;
 
-import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.web.ReactivePageableHandlerMethodArgumentResolver;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -18,11 +17,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 
-import tw.test.mike.bean.BlogBean;
+
 import tw.test.mike.bean.JourneyBean;
 import tw.test.mike.bean.MemberBean;
-import tw.test.mike.service.BlogService;
 import tw.test.mike.service.JourneyService;
+import tw.test.mike.service.MemberService;
 
 @RestController
 @RequestMapping("/journey")
@@ -30,6 +29,9 @@ import tw.test.mike.service.JourneyService;
 public class JourneyApiController {
 	@Autowired
 	private JourneyService journeyService;
+
+	@Autowired
+	private MemberService memberService;
 	
 	@GetMapping({"/"})
 	public ResponseEntity<?> read(){	
@@ -57,6 +59,17 @@ public class JourneyApiController {
 			return ResponseEntity.notFound().build();
 		}
 	}
+	@GetMapping({"/memberid={memberid}"})
+	public ResponseEntity<?> selectbyMemberId(
+			@PathVariable(name = "memberid") Integer memberid){
+		List<JourneyBean> result = memberService.selectJourney(memberid);
+
+		if(result!=null){
+			return ResponseEntity.ok(result);
+		}
+		return ResponseEntity.notFound().build();
+	}
+
 
 	@PostMapping({"/member={id}",})
 	public ResponseEntity<?> create(@RequestBody JourneyBean bean,

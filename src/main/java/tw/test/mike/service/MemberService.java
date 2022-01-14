@@ -42,7 +42,9 @@ public class MemberService {
 		return result;
 	}
 
-	public List<JourneyBean> selectJourney(MemberBean memberBean){
+	public List<JourneyBean> selectJourney(Integer memberid){
+		MemberBean memberBean = new MemberBean();
+		memberBean.setMemberid(memberid);
 		List<JourneyBean> result = null;
 		if(memberBean!=null){
 			result = selectbyId(memberBean).getJourney();

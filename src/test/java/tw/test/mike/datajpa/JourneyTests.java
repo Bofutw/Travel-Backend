@@ -6,11 +6,15 @@ import org.springframework.boot.test.context.SpringBootTest;
 import tw.test.mike.bean.JourneyBean;
 import tw.test.mike.bean.MemberBean;
 import tw.test.mike.service.JourneyService;
+import tw.test.mike.service.MemberService;
 
 @SpringBootTest
 public class JourneyTests {
     @Autowired
     private JourneyService journeyService;
+
+    @Autowired
+    private MemberService memberService;
 
 
    // @Test
@@ -36,11 +40,15 @@ public class JourneyTests {
     @Test
     public void testpost(){
         JourneyBean journeyBean = new JourneyBean();
-        journeyBean.setJourneyid(1);
-        MemberBean member =new MemberBean();
-        
+        journeyBean.setJourneyid(999);
+        journeyBean.setJourneydetail("123456");
+
+        MemberBean memberBean = new MemberBean();
+        memberBean.setMemberid(1);
+
+        journeyBean.setMember(memberService.selectbyId(memberBean));
         journeyService.create(journeyBean);
-        System.out.println(journeyService.selectBlog(journeyBean));
+
     }
 
 }

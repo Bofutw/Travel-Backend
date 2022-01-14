@@ -1,5 +1,6 @@
 package tw.test.mike.bean;
 
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -13,14 +14,8 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
 import javax.persistence.Table;
-
-import org.hibernate.annotations.Type;
-
-import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 
 @Entity
@@ -37,6 +32,11 @@ public class JourneyBean {
 	@Column(name = "journeydetail")
 	private String journeydetail;
 
+	@Column(name = "journeycreatetime")
+	private Date journeycreatetime;
+
+	@Column(name = "journeyupdatetime")
+	private Date journeyupdatetime;
 
 	@ManyToOne(fetch = FetchType.EAGER)
 	@JsonIgnore
@@ -54,6 +54,8 @@ public class JourneyBean {
 	)
 	@JsonIgnore
 	private List<BlogBean> blog;
+
+
 
 	public MemberBean getMember() {
 		return member;
@@ -87,11 +89,31 @@ public class JourneyBean {
 		this.journeydetail = journeydetail;
 	}
 
+	public Date getJourneycreatetime() {
+		return journeycreatetime;
+	}
+
+	public void setJourneycreatetime(Date journeycreatetime) {
+		this.journeycreatetime = journeycreatetime;
+	}
+
+	public Date getJourneyupdatetime() {
+		return journeyupdatetime;
+	}
+
+	public void setJourneyupdatetime(Date journeyupdatetime) {
+		this.journeyupdatetime = journeyupdatetime;
+	}
+
 	@Override
 	public String toString() {
 		return "JourneyBean{" +
 				"journeyid=" + journeyid +
 				", journeydetail='" + journeydetail + '\'' +
+				", journeycreatetime=" + journeycreatetime +
+				", journeyupdatetime=" + journeyupdatetime +
+				", member=" + member +
+				", blog=" + blog +
 				'}';
 	}
 }

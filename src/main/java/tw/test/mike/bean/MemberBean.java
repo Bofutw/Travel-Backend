@@ -30,10 +30,10 @@ import com.fasterxml.jackson.annotation.JsonManagedReference;
 @Table(name = "member")
 public class MemberBean {
 	@Id
+	@Column(name = "memberid")
 	@GeneratedValue(
 			strategy = GenerationType.IDENTITY
 	)
-	@Column(name = "memberid")
 	private Integer memberid;
 
 	@Column(name = "membername")

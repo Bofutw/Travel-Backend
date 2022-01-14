@@ -65,7 +65,7 @@ public class MemberApiController {
 		bean.setMemberid(65534);
 		MemberBean result = memberService.create(bean);
 		if(result!=null) {
-			return ResponseEntity.ok(bean);
+			return ResponseEntity.ok(result);
 		}
 		return ResponseEntity.notFound().build();
 	}

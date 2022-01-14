@@ -71,10 +71,13 @@ public class MemberService {
 		return null;
 	}
 	public MemberBean create(MemberBean memberBean) {
-		Date date = new Date();
-		memberBean.setMemberregistertime(date);
+		Optional<MemberBean> optional = memberRepository.findById(memberBean.getMemberid());
+		if(!optional.isPresent()){
+			Date date = new Date();
+			memberBean.setMemberregistertime(date);
 
-		return memberRepository.save(memberBean);
-
+			return memberRepository.save(memberBean);
+		}
+		return null;
 	}
 }

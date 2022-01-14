@@ -1,5 +1,6 @@
 package tw.test.mike.service;
 
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -54,6 +55,9 @@ public class JourneyService {
 	public JourneyBean update(JourneyBean journeyBean) {
 		Optional<JourneyBean> optional =journeyRepository.findById(journeyBean.getJourneyid());
 		if(optional.isPresent()) {
+			Date date = new Date();
+			journeyBean.setJourneyupdatetime(date);
+
 			return journeyRepository.save(journeyBean);
 		}
 		return null;
@@ -61,6 +65,9 @@ public class JourneyService {
 	public JourneyBean create(JourneyBean journeyBean) {
 		Optional<JourneyBean> optional =journeyRepository.findById(journeyBean.getJourneyid());
 		if(!optional.isPresent()) {
+			Date date = new Date();
+			journeyBean.setJourneycreatetime(date);
+
 			return journeyRepository.save(journeyBean);
 		}
 		return null;

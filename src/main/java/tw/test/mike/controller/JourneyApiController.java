@@ -87,6 +87,17 @@ public class JourneyApiController {
 		}
 		return ResponseEntity.badRequest().build();
 	}
+
+	@PutMapping({"/"})
+	public ResponseEntity<?> update(@RequestBody JourneyBean bean){
+		bean.setMember(journeyService.selectMember(bean));
+
+		JourneyBean result = journeyService.update(bean);
+		if(result!=null) {
+			return ResponseEntity.ok(result);
+		}
+		return ResponseEntity.badRequest().build();
+	}
 	
 	@DeleteMapping({"{id}"})
 	public ResponseEntity<?> delete(
@@ -101,13 +112,6 @@ public class JourneyApiController {
 	}
 	
 	
-	@PutMapping({"/"})
-	public ResponseEntity<?> update(@RequestBody JourneyBean bean){
-		JourneyBean result = journeyService.update(bean);
-		if(result!=null) {
-			return ResponseEntity.ok(result);
-		}
-		return ResponseEntity.badRequest().build();
-	}
+
 		
 }

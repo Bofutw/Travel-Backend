@@ -10,6 +10,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import tw.test.mike.bean.BlogBean;
 import tw.test.mike.bean.JourneyBean;
+import tw.test.mike.bean.MemberBean;
 import tw.test.mike.dao.BlogRepository;
 import tw.test.mike.dao.JourneyRepository;
 
@@ -33,6 +34,13 @@ public class JourneyService {
 			return result;
 		}
 		return result;
+	}
+
+	public MemberBean selectMember(JourneyBean journeyBean){
+		if(journeyBean!=null){
+			return  this.selectbyId(journeyBean).getMember();
+		}
+		return null;
 	}
 
 	public List<BlogBean> selectBlog(JourneyBean journeyBean){

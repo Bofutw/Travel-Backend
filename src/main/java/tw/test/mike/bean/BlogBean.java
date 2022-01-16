@@ -16,6 +16,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
+import javax.websocket.ClientEndpoint;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -45,6 +46,9 @@ public class BlogBean {
 
 	@Column(name = "blogupdatetime")
 	private Date blogupdatetime;
+
+	@Column(name = "blogpopular")
+	private Integer blogpopular;
 
 
 	@ManyToOne(fetch = FetchType.LAZY)
@@ -120,6 +124,14 @@ public class BlogBean {
 		this.blogupdatetime = blogupdatetime;
 	}
 
+	public Integer getBlogpopular() {
+		return blogpopular;
+	}
+
+	public void setBlogpopular(Integer blogpopular) {
+		this.blogpopular = blogpopular;
+	}
+
 	@Override
 	public String toString() {
 		return "BlogBean{" +
@@ -128,6 +140,7 @@ public class BlogBean {
 				", blogauthority=" + blogauthority +
 				", blogcreatetime=" + blogcreatetime +
 				", blogupdatetime=" + blogupdatetime +
+				", blogpopular=" + blogpopular +
 				'}';
 	}
 }

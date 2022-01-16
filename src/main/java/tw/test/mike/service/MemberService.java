@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import tw.test.mike.bean.BlogBean;
 import tw.test.mike.bean.JourneyBean;
 import tw.test.mike.bean.MemberBean;
 import tw.test.mike.dao.MemberRepository;
@@ -52,6 +53,17 @@ public class MemberService {
 		}
 		return result;
 
+	}
+
+	public  List<BlogBean> selectBlog(Integer memberid){
+		MemberBean memberBean = new MemberBean();
+		memberBean.setMemberid(memberid);
+		List<BlogBean> result = null;
+		if(memberBean!=null){
+			result = selectbyId(memberBean).getBlog();
+			return result;
+		}
+		return result;
 	}
 
 

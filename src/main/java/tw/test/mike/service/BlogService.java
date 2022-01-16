@@ -23,23 +23,53 @@ public class BlogService {
 		return blogRepository.findAll();
 	}
 
-	public List<BlogBean> selectAllbyauthority(){
-		List<BlogBean> result = null;
+	public BlogBean selectbyid(Integer blogid){
+		BlogBean result = null;
+		Optional<BlogBean> optional = blogRepository.findById(blogid);
+		if(optional.isPresent()){
+			updatepopular(optional.get());
+			result = optional.get();
+			return result;
+		}
+		return result;
 
-		return result = blogRepository.findByblogauthority(1);
 	}
 
-	public List<BlogBean> selectAllbymemberidandauthority(MemberBean memberBean, Integer authority){
+	public List<BlogBean> selectAllbyauthority(Integer authority){
+
+		return blogRepository.findByblogauthority(authority);
+	}
+
+	public List<BlogBean> selectAllbymemberidandauthority(MemberBean memberBean){
 		List<BlogBean> result = null;
 
-		result = blogRepository.findByMemberAndBlogauthority(memberBean, authority);
+		result = blogRepository.findByMemberAndBlogauthority(memberBean, 1);
 
 		return result;
 	}
+
+	public List<BlogBean> selectAllOrderBypopular(){
+		return blogRepository.findAllByOrderByBlogpopularDesc();
+	}
+
 	
 	public List<BlogBean> selectByKeyword(String keyword) {
 		return blogRepository.findByBlogdetailLike("%"+keyword+"%");
 
+	}
+
+	public JourneyBean selectJourney(BlogBean blogBean){
+		if(blogBean!=null){
+			return this.selectbyid(blogBean.getBlogid()).getJourney();
+		}
+		return null;
+	}
+
+	public MemberBean selectMember(BlogBean blogBean){
+		if(blogBean!=null){
+			return this.selectbyid(blogBean.getBlogid()).getMember();
+		}
+		return null;
 	}
 
 	public boolean delete(BlogBean blogBean) {
@@ -59,12 +89,25 @@ public class BlogService {
 		}
 		return null;
 	}
+
+	public BlogBean updatepopular(BlogBean blogBean){
+		Optional<BlogBean> optional = blogRepository.findById(blogBean.getBlogid());
+		if(optional.isPresent()){
+			Integer popular = blogBean.getBlogpopular();
+			popular++;
+			blogBean.setBlogpopular(popular);
+			return blogRepository.save(blogBean);
+		}
+		return null;
+	}
+
 	public BlogBean create(BlogBean blogBean) {
 		Optional<BlogBean> optional =blogRepository.findById(blogBean.getBlogid());
 
 		if(!optional.isPresent()) {
 			Date date = new Date();
 			blogBean.setBlogcreatetime(date);
+			blogBean.setBlogpopular(0);
 			return blogRepository.save(blogBean);
 		}
 		return null;

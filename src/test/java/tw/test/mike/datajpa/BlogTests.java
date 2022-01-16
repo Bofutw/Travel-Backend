@@ -18,14 +18,18 @@ public class BlogTests {
 
     @Test
     public void testselectAllbyauthority(){
-        System.out.println(blogService.selectAllbyauthority());
+        System.out.println(blogService.selectAllbyauthority(0));
     }
 
     @Test
     public void testselectAllbyauthorityandmemberid(){
         MemberBean memberBean = new MemberBean();
         memberBean.setMemberid(1);
-        System.out.println(blogService.selectAllbymemberidandauthority(memberBean, 0));
+        System.out.println(blogService.selectAllbymemberidandauthority(memberBean));
     }
 
+    @Test
+    public void testselectAllBypopular(){
+        System.out.println(blogService.selectAllOrderBypopular());
+    }
 }

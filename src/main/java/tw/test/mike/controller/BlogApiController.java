@@ -19,6 +19,7 @@ import tw.test.mike.bean.BlogBean;
 import tw.test.mike.bean.JourneyBean;
 import tw.test.mike.bean.MemberBean;
 import tw.test.mike.service.BlogService;
+import tw.test.mike.service.MemberService;
 
 @RestController
 @RequestMapping("/blog")
@@ -27,8 +28,11 @@ public class BlogApiController {
 	@Autowired
 	private BlogService blogService;
 
-	@GetMapping(path = "/")
-	public ResponseEntity<?> selectAllBlog(){
+	@Autowired
+	private MemberService memberService;
+
+	@GetMapping("/")
+	public ResponseEntity<?> selectAll(){
 		List<BlogBean> result = blogService.selectAll();
 		if(result!=null){
 			return ResponseEntity.ok(result);
@@ -37,9 +41,30 @@ public class BlogApiController {
 		}
 	}
 
-	
+	@GetMapping({"/id={id}"})
+	public ResponseEntity<?> selectbyid(
+			@PathVariable(name = "id") Integer id){
+		BlogBean result = blogService.selectbyid(id);
+		if(result!=null){
+			return ResponseEntity.ok(result);
+		}else {
+			return ResponseEntity.notFound().build();
+		}
+	}
+
+	@GetMapping({"/authority{authority}"})
+	public ResponseEntity<?> selectAllbyauthority(
+			@PathVariable(name = "authority") Integer authority){
+		List<BlogBean> result = blogService.selectAllbyauthority(authority);
+		if(result!=null) {
+			return ResponseEntity.ok(result);
+		}else {
+			return ResponseEntity.notFound().build();
+		}
+	}
+
 	@GetMapping({"/{keyword}"})
-	public ResponseEntity<?> read(
+	public ResponseEntity<?> selectbykeyword(
 			@PathVariable(name = "keyword",required = false) String keyword){	
 		System.out.println(keyword);
 		try {
@@ -54,6 +79,28 @@ public class BlogApiController {
 		}
 
 	}
+
+	@GetMapping({"/memberid={memberid}"})
+	public ResponseEntity<?> selectbymemberid(
+			@PathVariable (name = "memberid",required = false) Integer memberid){
+		List<BlogBean> result = memberService.selectBlog(memberid);
+
+		if(result!=null){
+			return ResponseEntity.ok(result);
+		}
+		return ResponseEntity.notFound().build();
+	}
+
+	@GetMapping({"/popular"})
+	public ResponseEntity<?> selectbypopular(){
+		List<BlogBean> result = blogService.selectAllOrderBypopular();
+		if(result!=null){
+			return ResponseEntity.ok(result);
+		}
+		return ResponseEntity.notFound().build();
+	}
+
+
 	
 	@PostMapping({"/member={memberid}&journey={journeyid}"})
 	public ResponseEntity<?> create(@RequestBody BlogBean bean,
@@ -67,6 +114,7 @@ public class BlogApiController {
 		JourneyBean journey = new JourneyBean();
 		journey.setJourneyid(journeyid);
 		bean.setJourney(journey);
+		bean.setBlogid(65534);
 
 		BlogBean result = blogService.create(bean);
 		if(result!=null) {
@@ -90,11 +138,15 @@ public class BlogApiController {
 	
 	@PutMapping({"/"})
 	public ResponseEntity<?> update(@RequestBody BlogBean bean){
+		bean.setJourney(blogService.selectJourney(bean));
+		bean.setMember(blogService.selectMember(bean));
+
 		BlogBean result = blogService.update(bean);
 		if(result!=null) {
 			return ResponseEntity.ok(result);
 		}
 		return ResponseEntity.badRequest().build();
 	}
-		
+
 }
+

@@ -17,4 +17,5 @@ public interface BlogRepository extends
 
 	public List<BlogBean> findByMemberAndBlogauthority(MemberBean memberBean, Integer authority);
 
+	public List<BlogBean> findAllByOrderByBlogpopularDesc();
 }

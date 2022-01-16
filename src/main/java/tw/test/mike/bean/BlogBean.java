@@ -27,10 +27,10 @@ import com.fasterxml.jackson.annotation.JsonManagedReference;
 public class BlogBean {
 
 	@Id
+	@Column(name = "blogid")
 	@GeneratedValue(
 			strategy = GenerationType.IDENTITY
 	)
-	@Column(name = "blogid")
 	private Integer blogid;
 
 
@@ -47,7 +47,7 @@ public class BlogBean {
 	private Date blogupdatetime;
 
 
-	@ManyToOne(fetch = FetchType.EAGER)
+	@ManyToOne(fetch = FetchType.LAZY)
 	@JsonIgnore
 	@JoinColumn(
 			name = "blogmemberid",
@@ -56,7 +56,7 @@ public class BlogBean {
 	private MemberBean member;
 
 
-	@ManyToOne(fetch = FetchType.EAGER)
+	@ManyToOne(fetch = FetchType.LAZY)
 	@JsonIgnore
 	@JoinColumn(
 			name = "blogjourneyid",
@@ -128,8 +128,6 @@ public class BlogBean {
 				", blogauthority=" + blogauthority +
 				", blogcreatetime=" + blogcreatetime +
 				", blogupdatetime=" + blogupdatetime +
-				", member=" + member +
-				", journey=" + journey +
 				'}';
 	}
 }

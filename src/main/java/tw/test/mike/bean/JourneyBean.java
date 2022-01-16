@@ -2,7 +2,6 @@ package tw.test.mike.bean;
 
 import java.util.Date;
 import java.util.List;
-import java.util.Map;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -16,6 +15,8 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
 
 
 @Entity
@@ -38,7 +39,7 @@ public class JourneyBean {
 	@Column(name = "journeyupdatetime")
 	private Date journeyupdatetime;
 
-	@ManyToOne(fetch = FetchType.EAGER)
+	@ManyToOne(fetch = FetchType.LAZY)
 	@JsonIgnore
 	@JoinColumn(
 			name = "journeymemberid",
@@ -50,8 +51,9 @@ public class JourneyBean {
 	@OneToMany(
 			mappedBy = "journey",
 			cascade = {CascadeType.ALL},
-			fetch = FetchType.EAGER
+			fetch = FetchType.LAZY
 	)
+	@Fetch(FetchMode.SUBSELECT)
 	@JsonIgnore
 	private List<BlogBean> blog;
 
@@ -112,8 +114,6 @@ public class JourneyBean {
 				", journeydetail='" + journeydetail + '\'' +
 				", journeycreatetime=" + journeycreatetime +
 				", journeyupdatetime=" + journeyupdatetime +
-				", member=" + member +
-				", blog=" + blog +
 				'}';
 	}
 }

@@ -55,7 +55,7 @@ public class JourneyService {
 	public boolean delete(JourneyBean journeyBean) {
 		Optional<JourneyBean> optional =journeyRepository.findById(journeyBean.getJourneyid());
 		if(optional.isPresent()) {
-			journeyRepository.delete(journeyBean);
+			journeyRepository.deleteById(journeyBean.getJourneyid());
 			return true;
 		}
 		return false;

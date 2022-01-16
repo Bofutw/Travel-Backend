@@ -24,7 +24,7 @@ public class AreaBean {
 	@OneToMany(
 			mappedBy = "area",//對方classs內設定association的java屬性名稱
 			cascade = {CascadeType.ALL},
-			fetch = FetchType.EAGER
+			fetch = FetchType.LAZY
 
 	)
 	private List<CityBean> city;

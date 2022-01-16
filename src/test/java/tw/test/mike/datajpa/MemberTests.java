@@ -4,6 +4,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import tw.test.mike.bean.MemberBean;
+import tw.test.mike.dao.MemberRepository;
 import tw.test.mike.service.MemberService;
 
 @SpringBootTest
@@ -12,7 +13,10 @@ public class MemberTests {
     @Autowired
     private MemberService memberService;
 
-   // @Test
+    @Autowired
+    private MemberRepository memberRepository;
+
+    @Test
     public void testSelects(){
 
         System.out.println(memberService.selectAll());
@@ -22,8 +26,7 @@ public class MemberTests {
     public void testSelectsbyId(){
         MemberBean bean = new MemberBean();
         bean.setMemberid(2);
-
-        System.out.println(memberService.selectbyId(bean).getCity());
+        System.out.println(memberService.selectbyId(bean));
     }
 
     @Test
@@ -35,6 +38,11 @@ public class MemberTests {
     public void testSelectJourney(){
 
         System.out.println(memberService.selectJourney(1));
+    }
+
+    @Test
+    public void testfind(){
+        System.out.println(memberRepository.findAll());
     }
 
 }

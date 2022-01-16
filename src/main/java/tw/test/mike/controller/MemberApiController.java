@@ -43,6 +43,7 @@ public class MemberApiController {
 		MemberBean bean = new MemberBean();
 		bean.setMemberid(id);
 		MemberBean result = memberService.selectbyId(bean);
+		System.out.println(result);
 		if(result!=null) {
 			return ResponseEntity.ok(result);
 		}
@@ -69,17 +70,7 @@ public class MemberApiController {
 		}
 		return ResponseEntity.notFound().build();
 	}
-	@DeleteMapping({"{id}"})
-	public ResponseEntity<?> delete(
-			@PathVariable(name = "id",required = false) Integer id){
-		MemberBean bean = new MemberBean();
-		bean.setMemberid(id);
-		boolean result = memberService.delete(bean);
-		if(result) {
-			return ResponseEntity.ok().build();
-		}
-		return ResponseEntity.notFound().build();
-	}
+
 	@PutMapping({"/", "/cityid={cityid}"})
 	public ResponseEntity<?> update(@RequestBody MemberBean bean, @PathVariable(name = "cityid", required = false) Integer cityid){
 		CityBean cityBean = new CityBean();
@@ -112,6 +103,18 @@ public class MemberApiController {
 		MemberBean result = memberService.update(bean);
 		if(result!=null) {
 			return ResponseEntity.ok(bean);
+		}
+		return ResponseEntity.notFound().build();
+	}
+
+	@DeleteMapping({"/{id}"})
+	public ResponseEntity<?> delete(
+			@PathVariable(name = "id",required = false) Integer id){
+		MemberBean bean = new MemberBean();
+		bean.setMemberid(id);
+		boolean result = memberService.delete(bean);
+		if(result) {
+			return ResponseEntity.ok().build();
 		}
 		return ResponseEntity.notFound().build();
 	}

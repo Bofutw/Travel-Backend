@@ -2,7 +2,6 @@ package tw.test.mike.bean;
 
 import java.util.Date;
 import java.util.List;
-import java.util.Set;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -14,17 +13,16 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
+
 import javax.persistence.Table;
 
-import net.bytebuddy.implementation.bind.annotation.Default;
+
 import org.hibernate.annotations.Fetch;
 import org.hibernate.annotations.FetchMode;
 import org.hibernate.annotations.Type;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 
 @Entity
 @Table(name = "member")
@@ -64,7 +62,7 @@ public class MemberBean {
 
 
 	@ManyToOne(
-			fetch= FetchType.EAGER,
+			fetch= FetchType.LAZY,
 			cascade = {CascadeType.ALL}
 	)
 	@JsonIgnore
@@ -74,12 +72,10 @@ public class MemberBean {
 	)
 	private CityBean city;
 
-
 	@OneToMany(
 			mappedBy = "member",
 			cascade = {CascadeType.ALL},
-			fetch= FetchType.EAGER
-
+			fetch= FetchType.LAZY
 	)
 	@Fetch(FetchMode.SUBSELECT)
 	@JsonIgnore
@@ -88,16 +84,17 @@ public class MemberBean {
 	@OneToMany(
 			mappedBy = "member",
 			cascade = {CascadeType.ALL},
-			fetch= FetchType.EAGER
+			fetch= FetchType.LAZY
 	)
 	@Fetch(FetchMode.SUBSELECT)
 	@JsonIgnore
 	private List<BlogBean> blog;
+
 	@OneToMany(
-			mappedBy = "member", 
+			mappedBy = "member",
+			cascade = {CascadeType.ALL},
 			fetch = FetchType.EAGER
 			)
-
 	@Fetch(FetchMode.SUBSELECT) //限制fetch深度避免進入fetch recursive
 	@JsonIgnore
 	private List<CollectBean> collect;
@@ -219,10 +216,6 @@ public class MemberBean {
 				", membergender=" + membergender +
 				", memberintro='" + memberintro + '\'' +
 				", memberregistertime=" + memberregistertime +
-				", city=" + city +
-				", journey=" + journey +
-				", blog=" + blog +
-				", collect=" + collect +
 				'}';
 	}
 }

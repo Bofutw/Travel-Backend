@@ -12,8 +12,6 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
-import org.hibernate.annotations.Fetch;
-import org.hibernate.annotations.FetchMode;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
@@ -25,7 +23,7 @@ public class CollectBean {
 	@Id
 	@Column(name ="collectid" )
 	Integer collectid;
-	
+
 	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "collectmemberid ",
 	referencedColumnName = "memberid ")
@@ -38,9 +36,9 @@ public class CollectBean {
 
 	public void setCollectid(Integer collectid) {
 		this.collectid = collectid;
-	} 
-	
-	
+	}
+
+
 	@Override
 	public String toString() {
 		return "CollectBean [collectid=" + collectid + " blog=" + blog + "]";
@@ -53,16 +51,16 @@ public class CollectBean {
 			referencedColumnName = "blogid ")
 	@JsonIgnore
 	BlogBean blog;
-	
 
-	public BlogBean getBlog() {
-		return blog;
-	}
 
-	public void setBlog(BlogBean blog) {
-		this.blog = blog;
-	}
-
+//	public BlogBean getBlog() {
+//		return blog;
+//	}
+//
+//	public void setBlog(BlogBean blog) {
+//		this.blog = blog;
+//	}
+//
 //	public MemberBean getMember() {
 //		return member;
 //	}
@@ -74,6 +72,6 @@ public class CollectBean {
 //	}
 //	public void setBlog(List<BlogBean> blog) {
 //		this.blog = blog;
-//	} 
+//	}
 
 }

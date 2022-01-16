@@ -16,13 +16,12 @@ public class JourneyTests {
     @Autowired
     private MemberService memberService;
 
-
-   // @Test
+    @Test
     public void testSelects(){
         System.out.println(journeyService.selectAll());
     }
 
-   // @Test
+    @Test
     public void testSelectsbyId(){
         JourneyBean journeyBean = new JourneyBean();
         journeyBean.setJourneyid(1);
@@ -30,7 +29,7 @@ public class JourneyTests {
         System.out.println(journeyService.selectbyId(journeyBean));
     }
 
-   // @Test
+    @Test
     public void testSelectBlog(){
         JourneyBean journeyBean = new JourneyBean();
         journeyBean.setJourneyid(1);
@@ -38,7 +37,7 @@ public class JourneyTests {
         System.out.println(journeyService.selectBlog(journeyBean));
     }
     @Test
-    public void testpost(){
+    public void testcreate(){
         JourneyBean journeyBean = new JourneyBean();
         journeyBean.setJourneyid(999);
         journeyBean.setJourneydetail("123456");
@@ -48,7 +47,14 @@ public class JourneyTests {
 
         journeyBean.setMember(memberService.selectbyId(memberBean));
         journeyService.create(journeyBean);
+}
 
+    @Test
+    public void testdelete(){
+        JourneyBean journeyBean = new JourneyBean();
+        journeyBean.setJourneyid(19);
+
+        journeyService.delete(journeyBean);
     }
 
 }

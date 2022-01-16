@@ -99,7 +99,7 @@ public class JourneyApiController {
 		return ResponseEntity.badRequest().build();
 	}
 	
-	@DeleteMapping({"{id}"})
+	@DeleteMapping({"/{id}"})
 	public ResponseEntity<?> delete(
 			@PathVariable(name = "id",required = false) Integer id){
 		JourneyBean bean = new JourneyBean();

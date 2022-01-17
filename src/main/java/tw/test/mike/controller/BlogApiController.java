@@ -41,7 +41,7 @@ public class BlogApiController {
 		}
 	}
 
-	@GetMapping({"/id={id}"})
+	@GetMapping({"/{id}"})
 	public ResponseEntity<?> selectbyid(
 			@PathVariable(name = "id") Integer id){
 		BlogBean result = blogService.selectbyid(id);
@@ -63,7 +63,7 @@ public class BlogApiController {
 		}
 	}
 
-	@GetMapping({"/{keyword}"})
+	@GetMapping({"/keyword={keyword}"})
 	public ResponseEntity<?> selectbykeyword(
 			@PathVariable(name = "keyword",required = false) String keyword){	
 		System.out.println(keyword);

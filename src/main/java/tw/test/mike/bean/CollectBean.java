@@ -24,7 +24,7 @@ public class CollectBean {
 	@Column(name ="collectid" )
 	Integer collectid;
 
-	@ManyToOne(fetch = FetchType.EAGER)
+	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "collectmemberid ",
 	referencedColumnName = "memberid ")
 	@JsonIgnore
@@ -39,39 +39,33 @@ public class CollectBean {
 	}
 
 
-	@Override
-	public String toString() {
-		return "CollectBean [collectid=" + collectid + " blog=" + blog + "]";
-	}
-
-
-	@ManyToOne(fetch = FetchType.EAGER)
+	@ManyToOne(fetch = FetchType.LAZY)//EAGER
 	@JsonManagedReference
 	@JoinColumn(name = "collectblogid ",
 			referencedColumnName = "blogid ")
 	@JsonIgnore
 	BlogBean blog;
 
+	public MemberBean getMember() {
+		return member;
+	}
 
-//	public BlogBean getBlog() {
-//		return blog;
-//	}
-//
-//	public void setBlog(BlogBean blog) {
-//		this.blog = blog;
-//	}
-//
-//	public MemberBean getMember() {
-//		return member;
-//	}
-//	public void setMember(MemberBean member) {
-//		this.member = member;
-//	}
-//	public List<BlogBean> getBlog() {
-//		return blog;
-//	}
-//	public void setBlog(List<BlogBean> blog) {
-//		this.blog = blog;
-//	}
+	public void setMember(MemberBean member) {
+		this.member = member;
+	}
 
+	public BlogBean getBlog() {
+		return blog;
+	}
+
+	public void setBlog(BlogBean blog) {
+		this.blog = blog;
+	}
+
+	@Override
+	public String toString() {
+		return "CollectBean{" +
+				"collectid=" + collectid +
+				'}';
+	}
 }

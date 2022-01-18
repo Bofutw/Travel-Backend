@@ -19,6 +19,7 @@ import tw.test.mike.bean.BlogBean;
 import tw.test.mike.bean.JourneyBean;
 import tw.test.mike.bean.MemberBean;
 import tw.test.mike.service.BlogService;
+import tw.test.mike.service.CollectService;
 import tw.test.mike.service.MemberService;
 
 @RestController
@@ -30,6 +31,9 @@ public class BlogApiController {
 
 	@Autowired
 	private MemberService memberService;
+
+	@Autowired
+	private CollectService collectService;
 
 	@GetMapping("/")
 	public ResponseEntity<?> selectAll(){
@@ -100,6 +104,16 @@ public class BlogApiController {
 		return ResponseEntity.notFound().build();
 	}
 
+	@GetMapping({"/collect/{memberid}"})
+	public ResponseEntity<?> selectbymembercollect(
+			@PathVariable (name = "memberid")Integer memberid){
+		List<BlogBean> result = collectService.selectBlog(memberService.selectCollect(memberid));
+		if(result!=null){
+			return ResponseEntity.ok(result);
+		}
+		return ResponseEntity.notFound().build();
+	}
+
 
 	
 	@PostMapping({"/member={memberid}&journey={journeyid}"})
@@ -140,6 +154,7 @@ public class BlogApiController {
 	public ResponseEntity<?> update(@RequestBody BlogBean bean){
 		bean.setJourney(blogService.selectJourney(bean));
 		bean.setMember(blogService.selectMember(bean));
+		bean.setBlogcreatetime(blogService.selectbyid(bean.getBlogid()).getBlogcreatetime());
 
 		BlogBean result = blogService.update(bean);
 		if(result!=null) {

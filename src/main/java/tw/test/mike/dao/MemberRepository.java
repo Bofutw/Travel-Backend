@@ -16,5 +16,8 @@ public interface MemberRepository
     public Integer countByCity(CityBean cityBean);
 
 	public List<MemberBean> findByCity(CityBean cityBean);
+
+	public MemberBean findBymemberemail(String email);
+
 }
 

@@ -24,9 +24,10 @@ public class MemberTests {
 
     @Test
     public void testSelectsbyId(){
-        MemberBean bean = new MemberBean();
-        bean.setMemberid(2);
-        System.out.println(memberService.selectbyId(bean).getCollect());
+//        MemberBean bean = new MemberBean();
+//        bean.setMemberid(2);
+//    	System.out.println(12);
+        System.out.println(memberService.selectbyEmail("Robin@gmail.com"));
     }
 
     //@Test

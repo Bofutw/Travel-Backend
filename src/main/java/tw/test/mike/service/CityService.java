@@ -33,8 +33,6 @@ public class CityService {
     public JSONArray selectmembercountbycity(){
         JSONArray result = new JSONArray();
 
-
-
         CityBean cityBean = new CityBean();
         for(int i=1; i<=22; i++){
             JSONObject city = new JSONObject();

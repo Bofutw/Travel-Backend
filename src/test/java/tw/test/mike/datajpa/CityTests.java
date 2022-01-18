@@ -16,7 +16,7 @@ public class CityTests {
     @Autowired
     private MemberService memberService;
 
-    @Test
+    //@Test
     public void testselectbyid(){
         MemberBean temp = new MemberBean();
         MemberBean memberBean;

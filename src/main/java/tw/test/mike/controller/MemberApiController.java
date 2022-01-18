@@ -60,6 +60,18 @@ public class MemberApiController {
 		}
 		return ResponseEntity.notFound().build();
 	}
+	@GetMapping({"/email={email}"})
+	public ResponseEntity<?> selectbyEmail(
+			@PathVariable (name = "email") String email){
+		
+		MemberBean  result = memberService.selectbyEmail(email);
+
+		if(result!=null){
+			return ResponseEntity.ok(result);
+		}
+		return ResponseEntity.notFound().build();
+	}
+
 
 	@PostMapping({"/",})
 	public ResponseEntity<?> create(@RequestBody MemberBean bean){

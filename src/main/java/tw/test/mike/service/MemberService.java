@@ -39,6 +39,12 @@ public class MemberService {
 		}
 		return result;
 	}
+	public MemberBean selectbyEmail(String email) {
+		MemberBean result = null;
+		result = memberRepository.findBymemberemail(email);
+
+		return result;
+	}
 
 	public List<MemberBean> selectbyGender(Integer gender){
 

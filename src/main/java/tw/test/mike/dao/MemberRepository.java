@@ -11,5 +11,6 @@ public interface MemberRepository
 		extends JpaRepository<MemberBean, Integer> {
 
 	public List<MemberBean> findBymembergender(Integer gender);
+	public MemberBean findBymemberemail(String email);
 }
 

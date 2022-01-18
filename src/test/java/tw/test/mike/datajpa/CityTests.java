@@ -26,4 +26,9 @@ public class CityTests {
         System.out.println(cityService.selectbyid(memberBean.getCity()));
 
     }
+
+    @Test
+    public void testselectmembercountbycity(){
+        System.out.println(cityService.selectmembercountbycity());
+    }
 }

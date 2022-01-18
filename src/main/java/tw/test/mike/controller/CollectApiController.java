@@ -2,12 +2,10 @@ package tw.test.mike.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import tw.test.mike.bean.BlogBean;
 import tw.test.mike.bean.CollectBean;
 import tw.test.mike.bean.MemberBean;
-import tw.test.mike.dao.CollectRepository;
 import tw.test.mike.service.CollectService;
 
 @RestController
@@ -44,6 +42,7 @@ public class CollectApiController {
 
         }
         return ResponseEntity.notFound().build();
-
     }
+
+
 }

@@ -9,10 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import tw.test.mike.bean.BlogBean;
-import tw.test.mike.bean.CollectBean;
-import tw.test.mike.bean.JourneyBean;
-import tw.test.mike.bean.MemberBean;
+import tw.test.mike.bean.*;
 import tw.test.mike.dao.CollectRepository;
 import tw.test.mike.dao.MemberRepository;
 
@@ -21,8 +18,6 @@ import tw.test.mike.dao.MemberRepository;
 public class MemberService {
 	@Autowired
 	private MemberRepository memberRepository;
-
-	public CollectRepository collectRepository;
 
 	public List<MemberBean> selectAll(){
 		return memberRepository.findAll();

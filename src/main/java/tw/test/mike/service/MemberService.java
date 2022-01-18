@@ -10,8 +10,10 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import tw.test.mike.bean.BlogBean;
+import tw.test.mike.bean.CollectBean;
 import tw.test.mike.bean.JourneyBean;
 import tw.test.mike.bean.MemberBean;
+import tw.test.mike.dao.CollectRepository;
 import tw.test.mike.dao.MemberRepository;
 
 @Service
@@ -19,6 +21,8 @@ import tw.test.mike.dao.MemberRepository;
 public class MemberService {
 	@Autowired
 	private MemberRepository memberRepository;
+
+	public CollectRepository collectRepository;
 
 	public List<MemberBean> selectAll(){
 		return memberRepository.findAll();
@@ -55,6 +59,7 @@ public class MemberService {
 
 	}
 
+
 	public  List<BlogBean> selectBlog(Integer memberid){
 		MemberBean memberBean = new MemberBean();
 		memberBean.setMemberid(memberid);
@@ -62,6 +67,17 @@ public class MemberService {
 		if(memberBean!=null){
 			result = selectbyId(memberBean).getBlog();
 			return result;
+		}
+		return result;
+	}
+
+	public List<CollectBean> selectCollect(Integer meberid){
+		MemberBean memberBean = new MemberBean();
+		memberBean.setMemberid(meberid);
+		List<CollectBean> result = null;
+
+		if(memberBean!=null){
+			result = selectbyId(memberBean).getCollect();
 		}
 		return result;
 	}

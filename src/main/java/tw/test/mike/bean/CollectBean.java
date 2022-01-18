@@ -2,15 +2,7 @@ package tw.test.mike.bean;
 
 import java.util.List;
 
-import javax.persistence.CascadeType;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -21,6 +13,9 @@ import com.fasterxml.jackson.annotation.JsonManagedReference;
 @Table(name = "collect")
 public class CollectBean {
 	@Id
+	@GeneratedValue(
+			strategy = GenerationType.IDENTITY
+	)
 	@Column(name ="collectid" )
 	Integer collectid;
 
@@ -39,11 +34,10 @@ public class CollectBean {
 	}
 
 
-	@ManyToOne(fetch = FetchType.LAZY)//EAGER
-	@JsonManagedReference
+	@ManyToOne(fetch = FetchType.EAGER)//EAGER
+	@JsonIgnore
 	@JoinColumn(name = "collectblogid ",
 			referencedColumnName = "blogid ")
-	@JsonIgnore
 	BlogBean blog;
 
 	public MemberBean getMember() {

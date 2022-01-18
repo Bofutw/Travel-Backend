@@ -19,6 +19,7 @@ import tw.test.mike.bean.BlogBean;
 import tw.test.mike.bean.JourneyBean;
 import tw.test.mike.bean.MemberBean;
 import tw.test.mike.service.BlogService;
+import tw.test.mike.service.CollectService;
 import tw.test.mike.service.MemberService;
 
 @RestController
@@ -31,6 +32,9 @@ public class BlogApiController {
 	@Autowired
 	private MemberService memberService;
 
+	@Autowired
+	private CollectService collectService;
+
 	@GetMapping("/")
 	public ResponseEntity<?> selectAll(){
 		List<BlogBean> result = blogService.selectAll();
@@ -41,7 +45,7 @@ public class BlogApiController {
 		}
 	}
 
-	@GetMapping({"/id={id}"})
+	@GetMapping({"/{id}"})
 	public ResponseEntity<?> selectbyid(
 			@PathVariable(name = "id") Integer id){
 		BlogBean result = blogService.selectbyid(id);
@@ -63,7 +67,7 @@ public class BlogApiController {
 		}
 	}
 
-	@GetMapping({"/{keyword}"})
+	@GetMapping({"/keyword={keyword}"})
 	public ResponseEntity<?> selectbykeyword(
 			@PathVariable(name = "keyword",required = false) String keyword){	
 		System.out.println(keyword);
@@ -94,6 +98,16 @@ public class BlogApiController {
 	@GetMapping({"/popular"})
 	public ResponseEntity<?> selectbypopular(){
 		List<BlogBean> result = blogService.selectAllOrderBypopular();
+		if(result!=null){
+			return ResponseEntity.ok(result);
+		}
+		return ResponseEntity.notFound().build();
+	}
+
+	@GetMapping({"/collect/{memberid}"})
+	public ResponseEntity<?> selectbymembercollect(
+			@PathVariable (name = "memberid")Integer memberid){
+		List<BlogBean> result = collectService.selectBlog(memberService.selectCollect(memberid));
 		if(result!=null){
 			return ResponseEntity.ok(result);
 		}
@@ -140,6 +154,7 @@ public class BlogApiController {
 	public ResponseEntity<?> update(@RequestBody BlogBean bean){
 		bean.setJourney(blogService.selectJourney(bean));
 		bean.setMember(blogService.selectMember(bean));
+		bean.setBlogcreatetime(blogService.selectbyid(bean.getBlogid()).getBlogcreatetime());
 
 		BlogBean result = blogService.update(bean);
 		if(result!=null) {

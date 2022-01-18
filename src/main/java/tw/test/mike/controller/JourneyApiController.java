@@ -110,8 +110,5 @@ public class JourneyApiController {
 		}
 		return ResponseEntity.notFound().build();
 	}
-	
-	
 
-		
 }

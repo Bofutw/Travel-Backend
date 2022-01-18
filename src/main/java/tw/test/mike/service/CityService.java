@@ -30,6 +30,8 @@ public class CityService {
         return result;
     }
 
+
+
     public JSONArray selectmembercountbycity(){
         JSONArray result = new JSONArray();
 

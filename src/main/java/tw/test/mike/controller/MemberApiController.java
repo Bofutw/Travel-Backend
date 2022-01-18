@@ -1,5 +1,6 @@
 package tw.test.mike.controller;
 
+import org.json.JSONArray;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -72,6 +73,15 @@ public class MemberApiController {
 		return ResponseEntity.notFound().build();
 	}
 
+	@GetMapping({"/countbycity"})
+	public ResponseEntity<?> selectmembercountbycity(){
+		JSONArray result = cityService.selectmembercountbycity();
+		System.out.println(result);
+		if(result!=null){
+			return ResponseEntity.ok(result.toString());
+		}
+		return ResponseEntity.notFound().build();
+	}
 
 	@PostMapping({"/",})
 	public ResponseEntity<?> create(@RequestBody MemberBean bean){

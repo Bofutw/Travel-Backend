@@ -16,6 +16,8 @@ public class CollectApiController {
     @Autowired
     private CollectService collectService;
 
+    
+
     @PutMapping({"/memberid={memberid}&blogid={blogid}"})
     public ResponseEntity<?> create(
         @PathVariable(name = "memberid") Integer memberid,
@@ -44,5 +46,16 @@ public class CollectApiController {
         return ResponseEntity.notFound().build();
     }
 
+    @DeleteMapping({"/{id}"})
+    public ResponseEntity<?> delete(
+            @PathVariable(name = "id" , required = false)Integer id){
+        CollectBean bean = new CollectBean();
+        bean.setCollectid(id);
+        boolean result = collectService.delete(bean);
+        if(result){
+            return ResponseEntity.ok().build();
+        }
+        return ResponseEntity.notFound().build();
+    }
 
 }

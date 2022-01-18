@@ -18,4 +18,9 @@ public class AreaTests {
         cityBean.setCityid(5);
         System.out.println(areaSerivce.selectbycityid(cityBean));
     }
+
+    @Test
+    public void testselectcountbyarea(){
+        System.out.println(areaSerivce.selectcountbyarea());
+    }
 }

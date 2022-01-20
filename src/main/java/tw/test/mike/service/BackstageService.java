@@ -121,8 +121,17 @@ public class BackstageService {
         return result;
     }
 
-    public void membergender(){
-        JSONArray result = new JSONArray();
+    public JSONObject membergenderdata(){
+        JSONObject result = new JSONObject();
+
+        Integer female = memberRepository.countByMembergender(0);
+        Integer male = memberRepository.countByMembergender(1);
+
+        result.put("female", female);
+        result.put("male", male);
+
+        return result;
+
     }
-    
+
 }

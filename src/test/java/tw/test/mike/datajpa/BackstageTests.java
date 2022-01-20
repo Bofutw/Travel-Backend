@@ -21,4 +21,9 @@ public class BackstageTests {
         backstageService.allmemberagedata();
     }
 
+
+    @Test
+    public void testmembergenderdata(){
+        System.out.println(backstageService.membergenderdata());
+    }
 }

@@ -1,8 +1,10 @@
 package tw.test.mike.controller;
 
 import org.json.JSONArray;
+import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -11,6 +13,7 @@ import tw.test.mike.service.BackstageService;
 
 @RestController
 @RequestMapping({"/backstage"})
+@CrossOrigin
 public class BackstageApiController {
 
     @Autowired
@@ -51,5 +54,15 @@ public class BackstageApiController {
             return ResponseEntity.ok(result.toString());
         }
         return ResponseEntity.notFound().build();
+    }
+
+    @GetMapping({"/membergenderdata"})
+    public ResponseEntity<?> selectmembergenderdata(){
+        JSONObject result = backstageService.membergenderdata();
+        if(result!=null){
+            return ResponseEntity.ok(result.toString());
+        }
+        return ResponseEntity.notFound().build();
+
     }
 }

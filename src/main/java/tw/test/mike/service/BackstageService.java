@@ -1,6 +1,7 @@
 package tw.test.mike.service;
 
 import net.bytebuddy.description.field.FieldDescription;
+import org.hibernate.engine.transaction.jta.platform.internal.JOnASJtaPlatform;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,9 +33,6 @@ public class BackstageService {
     @Autowired
     private AreaRepository areaRepository;
 
-    @Autowired
-    private BlogRepository blogRepository;
-
 
     public JSONArray selectmembercountbycity(){
         JSONArray result = new JSONArray();
@@ -48,7 +46,8 @@ public class BackstageService {
             if(cityBean!=null){
                 count = memberRepository.countByCity(cityBean);
                 name = cityRepository.findById(i).get().getCityname();
-                city.put(name,count);
+                city.put("name",name);
+                city.put("count",count);
             }
             result.put(city);
         }
@@ -72,7 +71,9 @@ public class BackstageService {
                     count += memberRepository.countByCity(city);
                 }
                 name=areaRepository.findById(i).get().getAreaname();
-                area.put(name, count);
+                area.put("name", name);
+                area.put("count", count);
+
             }
             result.put(area);
         }
@@ -121,14 +122,22 @@ public class BackstageService {
         return result;
     }
 
-    public JSONObject membergenderdata(){
-        JSONObject result = new JSONObject();
+    public JSONArray membergenderdata(){
+        JSONArray result = new JSONArray();
+        JSONObject female = new JSONObject(new LinkedHashMap<>());
+        JSONObject male = new JSONObject(new LinkedHashMap<>());
 
-        Integer female = memberRepository.countByMembergender(0);
-        Integer male = memberRepository.countByMembergender(1);
 
-        result.put("female", female);
-        result.put("male", male);
+        Integer countfemale = memberRepository.countByMembergender(0);
+        Integer countmale = memberRepository.countByMembergender(1);
+
+        female.put("name", "female");
+        female.put("value", countfemale);
+        result.put(female);
+
+        male.put("name", "male");
+        male.put("value", countmale);
+        result.put(male);
 
         return result;
 

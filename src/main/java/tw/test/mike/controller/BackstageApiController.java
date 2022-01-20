@@ -58,7 +58,7 @@ public class BackstageApiController {
 
     @GetMapping({"/membergenderdata"})
     public ResponseEntity<?> selectmembergenderdata(){
-        JSONObject result = backstageService.membergenderdata();
+        JSONArray result = backstageService.membergenderdata();
         if(result!=null){
             return ResponseEntity.ok(result.toString());
         }

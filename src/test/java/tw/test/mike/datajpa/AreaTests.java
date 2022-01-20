@@ -19,8 +19,5 @@ public class AreaTests {
         System.out.println(areaSerivce.selectbycityid(cityBean));
     }
 
-    @Test
-    public void testselectcountbyarea(){
-        System.out.println(areaSerivce.selectcountbyarea());
-    }
+
 }

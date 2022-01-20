@@ -5,6 +5,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
+import org.json.JSONArray;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -84,6 +85,8 @@ public class MemberService {
 	}
 
 
+
+
 	public boolean delete(MemberBean memberBean) {
 		Optional<MemberBean> optional =memberRepository.findById(memberBean.getMemberid());
 		if(optional.isPresent()) {
@@ -109,4 +112,5 @@ public class MemberService {
 		}
 		return null;
 	}
+
 }

@@ -73,15 +73,7 @@ public class MemberApiController {
 		return ResponseEntity.notFound().build();
 	}
 
-	@GetMapping({"/countbycity"})
-	public ResponseEntity<?> selectmembercountbycity(){
-		JSONArray result = cityService.selectmembercountbycity();
-		System.out.println(result);
-		if(result!=null){
-			return ResponseEntity.ok(result.toString());
-		}
-		return ResponseEntity.notFound().build();
-	}
+
 
 	@PostMapping({"/",})
 	public ResponseEntity<?> create(@RequestBody MemberBean bean){

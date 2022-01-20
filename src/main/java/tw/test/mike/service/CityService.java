@@ -18,9 +18,6 @@ public class CityService {
     @Autowired
     private CityRepository cityRepository;
 
-    @Autowired
-    private MemberRepository memberRepository;
-
     public CityBean selectbyid(CityBean cityBean){
         CityBean result = null;
         Optional<CityBean> optional = cityRepository.findById(cityBean.getCityid());
@@ -31,24 +28,5 @@ public class CityService {
     }
 
 
-
-    public JSONArray selectmembercountbycity(){
-        JSONArray result = new JSONArray();
-
-        CityBean cityBean = new CityBean();
-        for(int i=1; i<=22; i++){
-            JSONObject city = new JSONObject();
-            cityBean.setCityid(i);
-            Integer count = 0;
-            String name = "";
-            if(cityBean!=null){
-                count = memberRepository.countByCity(cityBean);
-                name = cityRepository.findById(i).get().getCityname();
-                city.put(name,count);
-            }
-            result.put(city);
-        }
-        return result;
-    }
 
 }

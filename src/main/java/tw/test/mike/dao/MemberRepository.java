@@ -19,5 +19,9 @@ public interface MemberRepository
 
 	public MemberBean findBymemberemail(String email);
 
+	public Integer countByMembergender(Integer gender);
+
+	public Integer countAllBy();
+
 }
 

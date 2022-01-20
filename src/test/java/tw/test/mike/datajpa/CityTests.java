@@ -4,6 +4,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import tw.test.mike.bean.MemberBean;
+import tw.test.mike.service.BackstageService;
 import tw.test.mike.service.CityService;
 import tw.test.mike.service.MemberService;
 
@@ -15,6 +16,9 @@ public class CityTests {
 
     @Autowired
     private MemberService memberService;
+
+    @Autowired
+    private BackstageService backstageService;
 
     //@Test
     public void testselectbyid(){
@@ -29,6 +33,6 @@ public class CityTests {
 
     @Test
     public void testselectmembercountbycity(){
-        System.out.println(cityService.selectmembercountbycity());
+        System.out.println(backstageService.selectmembercountbycity());
     }
 }

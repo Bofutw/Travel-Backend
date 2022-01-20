@@ -3,13 +3,18 @@ package tw.test.mike.datajpa;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.data.domain.PageRequest;
 import tw.test.mike.bean.MemberBean;
+import tw.test.mike.dao.BlogRepository;
 import tw.test.mike.service.BlogService;
 
 @SpringBootTest
 public class BlogTests {
     @Autowired
     BlogService blogService;
+
+    @Autowired
+    BlogRepository blogRepository;
 
     @Test
     public void testselectAll(){
@@ -32,4 +37,5 @@ public class BlogTests {
     public void testselectAllBypopular(){
         System.out.println(blogService.selectAllOrderBypopular());
     }
+
 }

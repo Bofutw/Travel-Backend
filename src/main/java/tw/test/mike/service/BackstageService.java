@@ -132,11 +132,11 @@ public class BackstageService {
         Integer countmale = memberRepository.countByMembergender(1);
 
         female.put("name", "female");
-        female.put("value", countfemale);
+        female.put("count", countfemale);
         result.put(female);
 
         male.put("name", "male");
-        male.put("value", countmale);
+        male.put("count", countmale);
         result.put(male);
 
         return result;

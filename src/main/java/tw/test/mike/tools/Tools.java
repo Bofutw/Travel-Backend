@@ -12,14 +12,20 @@ public class Tools {
         Date birthtime = bean.getMemberbirth();
 
         Calendar membercalendar = Calendar.getInstance();
-        membercalendar.setTime(birthtime);
-        Integer memberbirthyear = membercalendar.get(Calendar.YEAR);
+        try{
+            membercalendar.setTime(birthtime);
+            Integer memberbirthyear = membercalendar.get(Calendar.YEAR);
 
-        Calendar nowcalendar = Calendar.getInstance();
-        nowcalendar.setTime(new Date());
-        Integer year = nowcalendar.get(Calendar.YEAR);
+            Calendar nowcalendar = Calendar.getInstance();
+            nowcalendar.setTime(new Date());
+            Integer year = nowcalendar.get(Calendar.YEAR);
 
-        result = year-memberbirthyear;
+            result = year-memberbirthyear;
+        }catch (NullPointerException e){
+            result = null;
+        }
+
+
 //        System.out.println(result);
         return result;
     }
@@ -28,33 +34,38 @@ public class Tools {
         JSONObject result = new JSONObject();
         Integer value;
         String range;
-        switch (age<4?0:(age-4)/10){
-            case 0:
-                range="0-14";
-                value=0;
-                break;
-            case 1:
-                range="15-24";
-                value=1;
-                break;
-            case 2:
-                range="25-34";
-                value=2;
-                break;
-            case 3:
-                range="35-44";
-                value=3;
-                break;
-            case 4:
-                range="55-64";
-                value=4;
-                break;
-            default:
-                range="65以上";
-                value=5;
+        try{
+            switch (age<4?0:(age-4)/10){
+                case 0:
+                    range="0-14";
+                    value=0;
+                    break;
+                case 1:
+                    range="15-24";
+                    value=1;
+                    break;
+                case 2:
+                    range="25-34";
+                    value=2;
+                    break;
+                case 3:
+                    range="35-44";
+                    value=3;
+                    break;
+                case 4:
+                    range="55-64";
+                    value=4;
+                    break;
+                default:
+                    range="65以上";
+                    value=5;
+            }
+            result.put("range",range);
+            result.put("value",value);
+        }catch (NullPointerException e){
+
         }
-        result.put("range",range);
-        result.put("value",value);
+
         return result;
     }
 }

@@ -18,5 +18,5 @@ public interface BlogRepository extends
 
 	public List<BlogBean> findAllByOrderByBlogpopularDesc();
 
-//	public BlogBean findTopByBlogpopular();
+//	public List<BlogBean> findTopByBlogpopular();
 }

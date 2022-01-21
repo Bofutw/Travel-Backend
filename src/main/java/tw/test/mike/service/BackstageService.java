@@ -1,6 +1,7 @@
 package tw.test.mike.service;
 
 import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -95,23 +96,26 @@ public class BackstageService {
         ArrayList<MemberBean> memberbeans = (ArrayList)memberRepository.findAll();
         for(int i=0;i<memberbeans.size();i++){
             Integer age = Tools.age(memberbeans.get(i));
-            Integer agerangevalue = (Integer) Tools.agerange(age).get("value");
-
-            JSONObject temp;
-            temp = (JSONObject)result.get(agerangevalue);
-            Integer tempfemale = temp.getInt("female");
-            Integer tempmale = temp.getInt("male");
-            Integer temptotal = temp.getInt("total");
             try{
-                ((JSONObject) result.get(agerangevalue)).put("total",temptotal+1);
-                if(memberbeans.get(i).getMembergender()==0){
-                    ((JSONObject) result.get(agerangevalue)).put("female",tempfemale+1);
-                }
-                else {
-                    ((JSONObject) result.get(agerangevalue)).put("male",tempmale+1);
-                }
-            }catch (NullPointerException e){
+                Integer agerangevalue = (Integer) Tools.agerange(age).get("value");
+                JSONObject temp;
+                temp = (JSONObject)result.get(agerangevalue);
+                Integer tempfemale = temp.getInt("female");
+                Integer tempmale = temp.getInt("male");
+                Integer temptotal = temp.getInt("total");
 
+                try{
+                    ((JSONObject) result.get(agerangevalue)).put("total",temptotal+1);
+                    if(memberbeans.get(i).getMembergender()==0){
+                        ((JSONObject) result.get(agerangevalue)).put("female",tempfemale+1);
+                    }
+                    else {
+                        ((JSONObject) result.get(agerangevalue)).put("male",tempmale+1);
+                    }
+                }catch (NullPointerException e){
+
+                }
+            }catch (JSONException e){
             }
         }
         return result;

@@ -7,10 +7,6 @@ import tw.test.mike.bean.MemberBean;
 import tw.test.mike.dao.CityRepository;
 import tw.test.mike.dao.MemberRepository;
 import tw.test.mike.service.MemberService;
-import tw.test.mike.tools.Tools;
-
-import javax.tools.Tool;
-import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 
@@ -87,7 +83,6 @@ public class MemberTests {
     }
 @Test
     public void testcreate(){
-
 
         for(int i=1; i<=22;i++){
 

@@ -95,7 +95,7 @@ public class MemberTests {
             memberBean.setMemberid(65534);
             memberBean.setMembername("bofu"+i);
             memberBean.setCity(cityRepository.findById(i).get());
-            memberBean.setMemberemail(memberBean.getMembername()+i);
+            memberBean.setMemberemail(memberBean.getMembername()+"@gmail.com");
             memberBean.setMembergender(i%2);
             memberBean.setMembericon("https://test/"+i);
 

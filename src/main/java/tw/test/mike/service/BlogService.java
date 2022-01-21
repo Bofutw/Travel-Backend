@@ -72,6 +72,10 @@ public class BlogService {
 		return null;
 	}
 
+//	public BlogBean selecttopblog(){
+//		return blogRepository.findTopByBlogpopular();
+//	}
+
 	public boolean delete(BlogBean blogBean) {
 		Optional<BlogBean> optional =blogRepository.findById(blogBean.getBlogid());
 		if(optional.isPresent()) {

@@ -1,8 +1,6 @@
 package tw.test.mike.dao;
 
 import java.util.List;
-
-import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import tw.test.mike.bean.BlogBean;
@@ -20,9 +18,5 @@ public interface BlogRepository extends
 
 	public List<BlogBean> findAllByOrderByBlogpopularDesc();
 
-//	public List<BlogBean> findTop5ByBlogpopular();
-
-//	public List<BlogBean> findTop2ByBlogpopular(,Pageable pageable);
-
-	public BlogBean findTopByBlogpopular(Integer blogpopular);
+//	public BlogBean findTopByBlogpopular();
 }

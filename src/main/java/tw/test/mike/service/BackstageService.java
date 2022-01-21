@@ -1,7 +1,5 @@
 package tw.test.mike.service;
 
-import net.bytebuddy.description.field.FieldDescription;
-import org.hibernate.engine.transaction.jta.platform.internal.JOnASJtaPlatform;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,7 +9,6 @@ import tw.test.mike.bean.AreaBean;
 import tw.test.mike.bean.CityBean;
 import tw.test.mike.bean.MemberBean;
 import tw.test.mike.dao.AreaRepository;
-import tw.test.mike.dao.BlogRepository;
 import tw.test.mike.dao.CityRepository;
 import tw.test.mike.dao.MemberRepository;
 import tw.test.mike.tools.Tools;
@@ -32,7 +29,6 @@ public class BackstageService {
 
     @Autowired
     private AreaRepository areaRepository;
-
 
     public JSONArray selectmembercountbycity(){
         JSONArray result = new JSONArray();
@@ -118,7 +114,6 @@ public class BackstageService {
 
             }
         }
-        System.out.println(result);
         return result;
     }
 
@@ -140,7 +135,6 @@ public class BackstageService {
         result.put(male);
 
         return result;
-
     }
 
 }

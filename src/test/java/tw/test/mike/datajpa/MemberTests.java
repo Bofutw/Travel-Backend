@@ -4,6 +4,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import tw.test.mike.bean.MemberBean;
+import tw.test.mike.dao.CityRepository;
 import tw.test.mike.dao.MemberRepository;
 import tw.test.mike.service.MemberService;
 import tw.test.mike.tools.Tools;
@@ -21,6 +22,9 @@ public class MemberTests {
 
     @Autowired
     private MemberRepository memberRepository;
+
+    @Autowired
+    private CityRepository cityRepository;
 
     @Test
     public void testSelects(){
@@ -81,6 +85,22 @@ public class MemberTests {
 
         System.out.println(year-memberbirthyear);
     }
+@Test
+    public void testcreate(){
 
+
+        for(int i=1; i<=22;i++){
+
+            MemberBean memberBean = new MemberBean();
+            memberBean.setMemberid(65534);
+            memberBean.setMembername("bofu"+i);
+            memberBean.setCity(cityRepository.findById(i).get());
+            memberBean.setMemberemail(memberBean.getMembername()+i);
+            memberBean.setMembergender(i%2);
+            memberBean.setMembericon("https://test/"+i);
+
+            memberService.create(memberBean);
+        }
+    }
 
 }

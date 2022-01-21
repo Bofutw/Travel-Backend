@@ -13,9 +13,6 @@ public class BlogTests {
     @Autowired
     BlogService blogService;
 
-    @Autowired
-    BlogRepository blogRepository;
-
     @Test
     public void testselectAll(){
         System.out.println(blogService.selectAll());
@@ -37,5 +34,6 @@ public class BlogTests {
     public void testselectAllBypopular(){
         System.out.println(blogService.selectAllOrderBypopular());
     }
+
 
 }

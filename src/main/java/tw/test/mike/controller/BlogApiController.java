@@ -84,6 +84,15 @@ public class BlogApiController {
 
 	}
 
+	@GetMapping({"/topblog"})
+	public ResponseEntity<?> selecttoppopularblog(){
+		List<BlogBean> result = blogService.selecttoppopularblog();
+		if(result!=null){
+			return ResponseEntity.ok(result);
+		}
+		return ResponseEntity.notFound().build();
+	}
+
 	@GetMapping({"/memberid={memberid}"})
 	public ResponseEntity<?> selectbymemberid(
 			@PathVariable (name = "memberid",required = false) Integer memberid){
@@ -114,6 +123,14 @@ public class BlogApiController {
 		return ResponseEntity.notFound().build();
 	}
 
+	@GetMapping({"/newblog"})
+	public ResponseEntity<?> selectnewblog(){
+		List<BlogBean> result = blogService.selecttop5newblog();
+		if(result!=null){
+			return ResponseEntity.ok(result);
+		}
+		return ResponseEntity.notFound().build();
+	}
 
 	
 	@PostMapping({"/member={memberid}&journey={journeyid}"})

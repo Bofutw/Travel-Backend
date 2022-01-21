@@ -7,9 +7,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import tw.test.mike.bean.AreaBean;
+import tw.test.mike.bean.BlogBean;
 import tw.test.mike.bean.CityBean;
 import tw.test.mike.bean.MemberBean;
 import tw.test.mike.dao.AreaRepository;
+import tw.test.mike.dao.BlogRepository;
 import tw.test.mike.dao.CityRepository;
 import tw.test.mike.dao.MemberRepository;
 import tw.test.mike.tools.Tools;
@@ -30,6 +32,9 @@ public class BackstageService {
 
     @Autowired
     private AreaRepository areaRepository;
+
+    @Autowired
+    private BlogRepository blogRepository;
 
     public JSONArray selectmembercountbycity(){
         JSONArray result = new JSONArray();
@@ -126,7 +131,6 @@ public class BackstageService {
         JSONObject female = new JSONObject(new LinkedHashMap<>());
         JSONObject male = new JSONObject(new LinkedHashMap<>());
 
-
         Integer countfemale = memberRepository.countByMembergender(0);
         Integer countmale = memberRepository.countByMembergender(1);
 
@@ -140,5 +144,7 @@ public class BackstageService {
 
         return result;
     }
+
+
 
 }

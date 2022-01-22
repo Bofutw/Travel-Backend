@@ -17,6 +17,7 @@ import tw.test.mike.dao.MemberRepository;
 import tw.test.mike.tools.Tools;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.LinkedHashMap;
 import java.util.List;
 
@@ -145,6 +146,48 @@ public class BackstageService {
         return result;
     }
 
+    public JSONArray registertimedata(){
+        JSONArray result = new JSONArray();
+        ArrayList<MemberBean> memberBeans = (ArrayList)memberRepository.findByOrderByMemberregistertimeAsc();
+          for(MemberBean memberBean : memberBeans){
+
+            JSONObject data = new JSONObject(new LinkedHashMap<>());
+
+            Calendar calendar = Calendar.getInstance();
+            calendar.setTime(memberBean.getMemberregistertime());
+
+            Integer year = calendar.get(Calendar.YEAR);
+            Integer month = calendar.get(Calendar.MONTH) + 1;
+            Integer day = calendar.get(Calendar.DAY_OF_MONTH);
+            String tempdate =year +"/"+ month.toString()+"/"+day.toString();
+            switch (result.length()){
+                case 0:
+                    data.put("name",tempdate);
+                    data.put("value",1);
+                    result.put(data);
+                    break;
+
+                default:
+                    JSONObject predata= (JSONObject) result.get(result.length()-1);
+                    String prename = predata.getString("name");
+                    Integer prevalue = predata.getInt("value");
+
+                    if(tempdate.equals(prename)){
+
+                        data.put("name",tempdate);
+                        data.put("value",prevalue+1);
+                        result.remove(result.length()-1);
+                        result.put(data);
+                    }else {
+                        data.put("name",tempdate);
+                        data.put("value",1);
+                        result.put(data);
+                    }
+                    break;
+            }
+        }
+        return result;
+    }
 
 
 }

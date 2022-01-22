@@ -216,6 +216,6 @@ public class MemberBean {
 				", membergender=" + membergender +
 				", memberintro='" + memberintro + '\'' +
 				", memberregistertime=" + memberregistertime +
-				'}';
+				'}'+"\n";
 	}
 }

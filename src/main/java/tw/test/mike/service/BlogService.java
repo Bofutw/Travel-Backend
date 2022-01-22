@@ -3,11 +3,9 @@ package tw.test.mike.service;
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
 import tw.test.mike.bean.BlogBean;
 import tw.test.mike.bean.JourneyBean;
 import tw.test.mike.bean.MemberBean;

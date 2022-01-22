@@ -23,5 +23,7 @@ public interface MemberRepository
 
 	public Integer countAllBy();
 
+	public List<MemberBean> findByOrderByMemberregistertimeAsc();
+
 }
 

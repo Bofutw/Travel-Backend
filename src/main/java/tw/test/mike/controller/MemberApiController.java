@@ -77,8 +77,16 @@ public class MemberApiController {
 
 	@PostMapping({"/",})
 	public ResponseEntity<?> create(@RequestBody MemberBean bean){
+		MemberBean result = null;
 		bean.setMemberid(65534);
-		MemberBean result = memberService.create(bean);
+		try{
+			result = memberService.create(bean);
+		}catch (Exception e){
+			MemberBean temp = new MemberBean();
+			temp.setMemberid(0);
+			result = temp;
+		}
+
 		if(result!=null) {
 			return ResponseEntity.ok(result);
 		}

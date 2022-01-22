@@ -1,5 +1,6 @@
 package tw.test.mike.service;
 
+import java.sql.SQLIntegrityConstraintViolationException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
@@ -103,14 +104,17 @@ public class MemberService {
 		return null;
 	}
 	public MemberBean create(MemberBean memberBean) {
-		Optional<MemberBean> optional = memberRepository.findById(memberBean.getMemberid());
-		if(!optional.isPresent()){
-			Date date = new Date();
-			memberBean.setMemberregistertime(date);
+		try{
+			Optional<MemberBean> optional = memberRepository.findById(memberBean.getMemberid());
 
-			return memberRepository.save(memberBean);
+			if(!optional.isPresent()){
+				Date date = new Date();
+				memberBean.setMemberregistertime(date);
+				return memberRepository.save(memberBean);
+			}
+		}catch (Exception e){
+			return null;
 		}
 		return null;
 	}
-
 }

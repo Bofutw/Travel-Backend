@@ -51,8 +51,6 @@ public class CollectService {
         		}
         	}
     	}
-
-
     	return false;
     	
     }

@@ -32,6 +32,19 @@ public class CollectApiController {
         }
         return ResponseEntity.notFound().build();
     }
+    @GetMapping({"status/memberid={memberid}&blogid={blogid}"})
+    public ResponseEntity<?> collectStatus(
+            @PathVariable(name = "memberid") Integer memberid
+            ,@PathVariable(name = "blogid") Integer blogid){
+        boolean result = collectService.existCollect(memberService.selectCollect(memberid),blogid);
+
+        if(result){
+            return ResponseEntity.ok(result);
+        }else {
+        	return ResponseEntity.ok(result);
+        }
+        
+    }
 
 
     @PutMapping({"/memberid={memberid}&blogid={blogid}"})

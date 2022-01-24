@@ -5,6 +5,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import tw.test.mike.bean.BlogBean;
 import tw.test.mike.bean.CollectBean;
+import tw.test.mike.bean.MemberBean;
 import tw.test.mike.dao.CollectRepository;
 
 import java.util.ArrayList;
@@ -41,7 +42,21 @@ public class CollectService {
         }
         return null;
     }
+    
+    public boolean existCollect(List<CollectBean> beans,Integer blogid) {
+    	if(beans!=null&&blogid!=null) {
+        	for(CollectBean bean:beans) {
+        		if(bean.getBlog().getBlogid()==blogid) {
+        			return true;   			
+        		}
+        	}
+    	}
 
+
+    	return false;
+    	
+    }
+    
     public boolean delete(CollectBean collectBean){
         Optional<CollectBean> optional = collectRepository.findById(collectBean.getCollectid());
         if(optional.isPresent()){

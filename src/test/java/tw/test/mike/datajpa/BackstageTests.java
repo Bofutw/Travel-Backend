@@ -27,4 +27,9 @@ public class BackstageTests {
         System.out.println(backstageService.membergenderdata());
     }
 
+    @Test
+    public void testregistertimedata(){
+        backstageService.registertimedata();
+    }
+
 }

@@ -98,4 +98,10 @@ public class MemberTests {
         }
     }
 
+    @Test
+    public void testfindAllByOrderByMemberregistertimeAsc(){
+        System.out.println(memberRepository.findByOrderByMemberregistertimeAsc());
+    }
+
+
 }

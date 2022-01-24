@@ -68,5 +68,15 @@ public class BackstageApiController {
 
     }
 
+    @GetMapping({"/memberregisterdata"})
+    public ResponseEntity<?> selectmembercreatedata(){
+        JSONArray result = backstageService.registertimedata();
+        if(result!=null){
+            return  ResponseEntity.ok(result.toString());
+        }
+        return ResponseEntity.notFound().build();
+    }
+
+
 
 }

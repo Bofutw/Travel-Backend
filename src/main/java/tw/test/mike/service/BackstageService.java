@@ -7,7 +7,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import tw.test.mike.bean.AreaBean;
-import tw.test.mike.bean.BlogBean;
 import tw.test.mike.bean.CityBean;
 import tw.test.mike.bean.MemberBean;
 import tw.test.mike.dao.AreaRepository;
@@ -76,7 +75,6 @@ public class BackstageService {
                 name=areaRepository.findById(i).get().getAreaname();
                 area.put("name", name);
                 area.put("count", count);
-
             }
             result.put(area);
         }
@@ -149,8 +147,7 @@ public class BackstageService {
     public JSONArray registertimedata(){
         JSONArray result = new JSONArray();
         ArrayList<MemberBean> memberBeans = (ArrayList)memberRepository.findByOrderByMemberregistertimeAsc();
-          for(MemberBean memberBean : memberBeans){
-
+        for(MemberBean memberBean : memberBeans){
             JSONObject data = new JSONObject(new LinkedHashMap<>());
 
             Calendar calendar = Calendar.getInstance();
@@ -188,6 +185,4 @@ public class BackstageService {
         }
         return result;
     }
-
-
 }

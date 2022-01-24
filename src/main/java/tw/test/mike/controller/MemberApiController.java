@@ -1,6 +1,6 @@
 package tw.test.mike.controller;
 
-import org.json.JSONArray;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -40,11 +40,9 @@ public class MemberApiController {
 	@GetMapping({"/{id}"})
 	public ResponseEntity<?> selectbyId(
 			@PathVariable(name = "id",required = false) Integer id){
-		
 		MemberBean bean = new MemberBean();
 		bean.setMemberid(id);
 		MemberBean result = memberService.selectbyId(bean);
-		System.out.println(result);
 		if(result!=null) {
 			return ResponseEntity.ok(result);
 		}

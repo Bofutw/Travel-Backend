@@ -35,4 +35,10 @@ public class CityTests {
     public void testselectmembercountbycity(){
         System.out.println(backstageService.selectmembercountbycity());
     }
+
+    @Test
+    public void testselectbymemberid(){
+        System.out.println(cityService.selectbymemberid(4));
+    }
+
 }

@@ -20,7 +20,7 @@ public class CollectTests {
 
     @Test
     public void testselectbyMembertoBlog(){
-        System.out.println(collectService.selectBlog(memberService.selectCollect(1)));
+        System.out.println(collectService.selectBlog(memberService.selectCollect(3)));
     }
 
     @Test

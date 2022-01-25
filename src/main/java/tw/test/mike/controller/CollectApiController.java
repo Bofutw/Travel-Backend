@@ -36,18 +36,15 @@ public class CollectApiController {
     public ResponseEntity<?> collectStatus(
             @PathVariable(name = "memberid") Integer memberid
             ,@PathVariable(name = "blogid") Integer blogid){
-        boolean result = collectService.existCollect(memberService.selectCollect(memberid),blogid);
+        Object[] result = collectService.existCollect(memberService.selectCollect(memberid),blogid);
 
-        if(result){
             return ResponseEntity.ok(result);
-        }else {
-        	return ResponseEntity.ok(result);
-        }
+
         
     }
 
 
-    @PutMapping({"/memberid={memberid}&blogid={blogid}"})
+    @PostMapping({"/memberid={memberid}&blogid={blogid}"})
     public ResponseEntity<?> create(
         @PathVariable(name = "memberid") Integer memberid,
         @PathVariable(name = "blogid") Integer blogid){

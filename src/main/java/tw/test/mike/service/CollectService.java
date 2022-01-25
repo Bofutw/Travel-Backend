@@ -43,15 +43,18 @@ public class CollectService {
         return null;
     }
     
-    public boolean existCollect(List<CollectBean> beans,Integer blogid) {
+    public Object[] existCollect(List<CollectBean> beans,Integer blogid) {
+    	Object[] result = {false,null};
     	if(beans!=null&&blogid!=null) {
         	for(CollectBean bean:beans) {
         		if(bean.getBlog().getBlogid()==blogid) {
-        			return true;   			
+        			result[0]=true;
+        			result[1]=bean.getCollectid();
+        			return result;   			
         		}
         	}
     	}
-    	return false;
+    	return result;
     	
     }
     

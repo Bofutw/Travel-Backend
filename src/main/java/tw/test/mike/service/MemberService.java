@@ -1,10 +1,10 @@
 package tw.test.mike.service;
 
+import java.net.Inet4Address;
+import java.sql.Array;
 import java.sql.SQLIntegrityConstraintViolationException;
 import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 import org.json.JSONArray;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import tw.test.mike.bean.*;
+import tw.test.mike.dao.BlogRepository;
 import tw.test.mike.dao.CollectRepository;
 import tw.test.mike.dao.MemberRepository;
 
@@ -20,6 +21,9 @@ import tw.test.mike.dao.MemberRepository;
 public class MemberService {
 	@Autowired
 	private MemberRepository memberRepository;
+
+	@Autowired
+	private BlogRepository blogRepository;
 
 	public List<MemberBean> selectAll(){
 		return memberRepository.findAll();
@@ -49,6 +53,36 @@ public class MemberService {
 
 		return result;
 	}
+
+	public List<MemberBean> selectpopularbloger(){
+		List<Map> Maps= blogRepository.findpopularmember();
+		List<MemberBean> result = new ArrayList<>();
+//		MemberBean[] res = new MemberBean[3];
+
+		//result.add(TEST);
+//		for(int i=0; i<Maps.size();i++){
+//			Integer memberid = (Integer) Maps.get(i).get("blogmemberid");
+//			MemberBean bean = memberRepository.findById(memberid).get();
+//			res[i]=bean;
+//			result.add(selectbyId(bean));
+//		}
+
+		for(Map data : Maps){
+			Integer memberid = (Integer) data.get("blogmemberid");
+			MemberBean temp = memberRepository.findById(memberid).get();
+			MemberBean TEST = new MemberBean();
+			TEST.setMembername(temp.getMembername());
+			TEST.setMemberintro(temp.getMemberintro());
+			TEST.setMemberid(temp.getMemberid());
+			TEST.setMembericon(temp.getMembericon());
+			result.add(TEST);
+			//System.out.println(memberRepository.findById(memberid).get());
+		}
+		return result;
+	}
+
+
+
 
 	public List<JourneyBean> selectJourney(Integer memberid){
 		MemberBean memberBean = new MemberBean();

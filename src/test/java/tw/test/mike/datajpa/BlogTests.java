@@ -7,6 +7,10 @@ import tw.test.mike.bean.MemberBean;
 import tw.test.mike.dao.BlogRepository;
 import tw.test.mike.service.BlogService;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
+
 @SpringBootTest
 public class BlogTests {
     @Autowired
@@ -50,6 +54,16 @@ public class BlogTests {
     @Test
     public void testfindTop5ByOrderByBlogcreatetimeAsc(){
         System.out.println(blogRepository.findTop5ByOrderByBlogcreatetimeDesc());
+    }
+
+    @Test
+    public void testfindpopularmember(){
+        ArrayList<Map> list= (ArrayList<Map>) blogRepository.findpopularmember();
+        for(Map data : list){
+            Integer memberid = (Integer) data.get("blogmemberid");
+            String memberpopular =  data.get("memberpopular").toString();
+            System.out.println("memberid = " + memberid + ", memberpopular = " + memberpopular);
+        }
     }
 
 }

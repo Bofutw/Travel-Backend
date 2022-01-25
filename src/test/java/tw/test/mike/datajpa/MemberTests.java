@@ -4,9 +4,12 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import tw.test.mike.bean.MemberBean;
+import tw.test.mike.controller.MemberApiController;
 import tw.test.mike.dao.CityRepository;
 import tw.test.mike.dao.MemberRepository;
 import tw.test.mike.service.MemberService;
+
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 
@@ -21,6 +24,9 @@ public class MemberTests {
 
     @Autowired
     private CityRepository cityRepository;
+
+    @Autowired
+    private MemberApiController memberApiController;
 
     @Test
     public void testSelects(){
@@ -103,5 +109,27 @@ public class MemberTests {
         System.out.println(memberRepository.findByOrderByMemberregistertimeAsc());
     }
 
+    @Test
+    public void testselectpopularbloger(){
 
+        System.out.println(memberService.selectpopularbloger());
+    }
+
+
+    @Test
+    public void testpopularblogerapi(){
+        System.out.println(memberApiController.selectpopularbloger());
+    }
+
+
+    @Test
+    public void testfindByMemberid(){
+        ArrayList<Integer> temp = new ArrayList<>();
+        temp.add(1);
+        temp.add(5);
+
+        for(Integer memberid : temp){
+            System.out.println(memberRepository.findById(memberid));
+        }
+    }
 }

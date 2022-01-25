@@ -5,6 +5,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import tw.test.mike.bean.CityBean;
 import tw.test.mike.bean.MemberBean;
 
+import java.util.ArrayList;
 import java.util.List;
 
 

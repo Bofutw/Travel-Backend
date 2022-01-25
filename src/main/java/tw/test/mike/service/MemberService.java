@@ -70,12 +70,17 @@ public class MemberService {
 		for(Map data : Maps){
 			Integer memberid = (Integer) data.get("blogmemberid");
 			MemberBean temp = memberRepository.findById(memberid).get();
+			Optional<MemberBean> bean = memberRepository.findById(memberid);
+			MemberBean TEST2 = new MemberBean();
+			if(!bean.isEmpty()) {
+				TEST2 =bean.get();
+			}
 			MemberBean TEST = new MemberBean();
 			TEST.setMembername(temp.getMembername());
 			TEST.setMemberintro(temp.getMemberintro());
 			TEST.setMemberid(temp.getMemberid());
 			TEST.setMembericon(temp.getMembericon());
-			result.add(TEST);
+			result.add(TEST2);
 			//System.out.println(memberRepository.findById(memberid).get());
 		}
 		return result;

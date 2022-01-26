@@ -75,7 +75,7 @@ public class MemberApiController {
 	@GetMapping({"/popularbloger"})
 	public ResponseEntity<?> selectpopularbloger(){
 
-		List<MemberBean> result = memberService.selectpopularbloger2();
+		List<MemberBean> result = memberService.selectpopularbloger();
 		if(result!=null){
 			return ResponseEntity.ok(result);
 		}

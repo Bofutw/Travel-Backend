@@ -57,64 +57,13 @@ public class MemberService {
 	public List<MemberBean> selectpopularbloger(){
 		List<Map> Maps= blogRepository.findpopularmember();
 		List<MemberBean> result = new ArrayList<>();
-//		MemberBean[] res = new MemberBean[3];
-
-		//result.add(TEST);
-//		for(int i=0; i<Maps.size();i++){
-//			Integer memberid = (Integer) Maps.get(i).get("blogmemberid");
-//			MemberBean bean = memberRepository.findById(memberid).get();
-//			res[i]=bean;
-//			result.add(selectbyId(bean));
-//		}
 
 		for(Map data : Maps){
 			Integer memberid = (Integer) data.get("blogmemberid");
 			Optional<MemberBean> optional = memberRepository.findById(memberid);
-			MemberBean memberBean = new MemberBean();
 			if(!optional.isEmpty()){
-				memberBean = optional.get();
-
+				result.add(optional.get());
 			}
-			result.add(memberBean);
-//			MemberBean TEST = new MemberBean();
-//			TEST.setMembername(temp.getMembername());
-//			TEST.setMemberintro(temp.getMemberintro());
-//			TEST.setMemberid(temp.getMemberid());
-//			TEST.setMembericon(temp.getMembericon());
-//			result.add(TEST);
-			//System.out.println(memberRepository.findById(memberid).get());
-		}
-		return result;
-	}
-
-	public List<MemberBean> selectpopularbloger2(){
-		List<Map> Maps= blogRepository.findpopularmember();
-		List<MemberBean> result = new ArrayList<>();
-//  MemberBean[] res = new MemberBean[3];
-
-		//result.add(TEST);
-//  for(int i=0; i<Maps.size();i++){
-//   Integer memberid = (Integer) Maps.get(i).get("blogmemberid");
-//   MemberBean bean = memberRepository.findById(memberid).get();
-//   res[i]=bean;
-//   result.add(selectbyId(bean));
-//  }
-
-		for(Map data : Maps){
-			Integer memberid = (Integer) data.get("blogmemberid");
-			MemberBean temp = memberRepository.findById(memberid).get();
-			Optional<MemberBean> bean = memberRepository.findById(memberid);
-			MemberBean TEST2 = new MemberBean();
-			if(!bean.isEmpty()) {
-				TEST2 =bean.get();
-			}
-			MemberBean TEST = new MemberBean();
-			TEST.setMembername(temp.getMembername());
-			TEST.setMemberintro(temp.getMemberintro());
-			TEST.setMemberid(temp.getMemberid());
-			TEST.setMembericon(temp.getMembericon());
-			result.add(TEST2);
-			//System.out.println(memberRepository.findById(memberid).get());
 		}
 		return result;
 	}

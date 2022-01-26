@@ -27,6 +27,6 @@ public interface BlogRepository extends
 
 	public List<BlogBean> findTop5ByOrderByBlogcreatetimeDesc();
 
-	@Query(value = "SELECT SUM(blogpopular) as memberpopular,blogmemberid from blog group by blogmemberid order by memberpopular desc LIMIT 3", nativeQuery = true)
+	@Query(value = "SELECT SUM(blogpopular) as memberpopular,blogmemberid from blog group by blogmemberid order by memberpopular desc LIMIT 10", nativeQuery = true)
 	public List<Map> findpopularmember();
 }

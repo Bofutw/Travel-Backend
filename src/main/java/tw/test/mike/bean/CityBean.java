@@ -1,12 +1,14 @@
 package tw.test.mike.bean;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import org.hibernate.annotations.Cascade;
 import org.hibernate.annotations.ManyToAny;
 
 import javax.persistence.*;
 import java.util.List;
 
+@JsonIgnoreProperties(value = { "hibernateLazyInitializer", "handler" })
 @Entity
 @Table(name = "city")
 public class CityBean {

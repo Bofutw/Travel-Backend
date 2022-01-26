@@ -2,6 +2,7 @@ package tw.test.mike.controller;
 
 import java.util.List;
 
+import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -48,9 +49,20 @@ public class BlogApiController {
 	@GetMapping({"/{id}"})
 	public ResponseEntity<?> selectbyid(
 			@PathVariable(name = "id") Integer id){
-		BlogBean result = blogService.selectbyid(id);
+		BlogBean temp = blogService.selectbyid(id);
+		MemberBean member = memberService.selectbyId(temp.getMember());
+		JSONObject result = new JSONObject();
+		result.put("blogid", temp.getBlogid());
+		result.put("blogdetail", temp.getBlogdetail());
+		result.put("blogauthority", temp.getBlogauthority());
+		result.put("blogcreatetime", temp.getBlogcreatetime());
+		result.put("blogupdatetime", temp.getBlogupdatetime());
+		result.put("blogpopular", temp.getBlogpopular());
+		result.put("membernickname", member.getMembernickname());
+		result.put("memberintro", member.getMemberintro());
+		result.put("membericon", member.getMembericon());
 		if(result!=null){
-			return ResponseEntity.ok(result);
+			return ResponseEntity.ok(result.toString());
 		}else {
 			return ResponseEntity.notFound().build();
 		}

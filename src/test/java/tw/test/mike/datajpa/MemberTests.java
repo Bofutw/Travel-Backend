@@ -87,7 +87,7 @@ public class MemberTests {
 
         System.out.println(year-memberbirthyear);
     }
-@Test
+//    @Test
     public void testcreate(){
 
         for(int i=1; i<=22;i++){
@@ -97,8 +97,25 @@ public class MemberTests {
             memberBean.setMembername("bofu"+i);
             memberBean.setCity(cityRepository.findById(i).get());
             memberBean.setMemberemail(memberBean.getMembername()+"@gmail.com");
-            memberBean.setMembergender(i%2);
+            memberBean.setMembergender(((int)(Math.random()*2)));
             memberBean.setMembericon("https://test/"+i);
+
+            memberService.create(memberBean);
+        }
+    }
+
+//    @Test
+    public void testcreate2(){
+
+        for(int i=1; i<=22;i++){
+
+            MemberBean memberBean = new MemberBean();
+            memberBean.setMemberid(65534);
+            memberBean.setMembername("barney"+i);
+            memberBean.setCity(cityRepository.findById((int)(Math.random()*23+1)).get());
+            memberBean.setMemberemail(memberBean.getMembername()+"@gmail.com");
+            memberBean.setMembergender(((int)(Math.random()*2)));
+            memberBean.setMembericon("https://test/"+i+((int)(Math.random()*23+1)));
 
             memberService.create(memberBean);
         }

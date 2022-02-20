@@ -30,6 +30,11 @@ public class BlogTests {
     }
 
     @Test
+    public void testselectid(){
+        System.out.println(blogService.selectbyid(9));
+    }
+
+    @Test
     public void testselectAllbyauthorityandmemberid(){
         MemberBean memberBean = new MemberBean();
         memberBean.setMemberid(1);

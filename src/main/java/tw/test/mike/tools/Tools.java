@@ -4,6 +4,8 @@ import org.json.JSONObject;
 import tw.test.mike.bean.MemberBean;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.GregorianCalendar;
+import java.util.Map;
 
 
 public class Tools {
@@ -25,8 +27,6 @@ public class Tools {
             result = null;
         }
 
-
-//        System.out.println(result);
         return result;
     }
 
@@ -35,7 +35,7 @@ public class Tools {
         Integer value;
         String range;
         try{
-            switch (age<4?0:(age-4)/10){
+            switch (age<14?0:(age-5)/10){
                 case 0:
                     range="0-14";
                     value=0;
@@ -53,19 +53,46 @@ public class Tools {
                     value=3;
                     break;
                 case 4:
-                    range="55-64";
+                    range="45-54";
                     value=4;
+                    break;
+                case 5:
+                    range="55-64";
+                    value=5;
                     break;
                 default:
                     range="65以上";
-                    value=5;
+                    value=6;
             }
             result.put("range",range);
             result.put("value",value);
         }catch (NullPointerException e){
 
         }
-
         return result;
     }
+
+    public static int randomAgeYear(int topage){
+
+        int age = (int)(Math.random()*topage+1);
+        Calendar cal = Calendar.getInstance();
+        int nowyear = cal.get(Calendar.YEAR);
+        int year = nowyear-age;
+
+        return year;
+    }
+
+    public static int randomBetween(int start, int end){
+        return (int)(Math.random()*(end-start) + start);
+    }
+
+
+    public static Date randomBirthday(){
+
+        GregorianCalendar gc = new GregorianCalendar();
+        gc.set(gc.YEAR, randomAgeYear(81));
+
+        return null;
+    }
+
 }
